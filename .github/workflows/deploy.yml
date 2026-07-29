@@ -1,10 +1,17 @@
 name: Deploy dashboard → Cloudflare Pages
 
+# Manual only, on purpose.
+#
+# This job needs Cloudflare credentials plus the owner's personal constants
+# (date of birth, height, sex) at build time. In a public repo those would have
+# to live as repository secrets, and the personal ones get inlined into the
+# client bundle by Vite anyway, so storing them here buys nothing and adds a
+# place they can leak from. See "Security and privacy notes" in the README.
+#
+# The maintained path is a local deploy from dashboard/ with a local
+# .env.local: `npm run deploy`. A fork that wants automated deploys can add
+# its own secrets and re-enable the push trigger below.
 on:
-  push:
-    branches: [main]
-    paths:
-      - "dashboard/**"
   workflow_dispatch:
 
 jobs:
