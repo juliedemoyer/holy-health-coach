@@ -18,6 +18,8 @@
  * the plan visible and version-controlled.)
  */
 
+import { BUILD_START_ISO, RACE_DATE as CONFIGURED_RACE_DATE } from "./config";
+
 export type Phase = "Base" | "Build" | "Peak" | "Taper" | "Race";
 
 /** Type of training stress for a single session. */
@@ -109,9 +111,14 @@ export function weekHasTravel(week: PlanWeek): TravelBlock[] {
 // (long run on Sunday closes the week). The 100-session tracker on /
 // counts from Fri 1 May separately — it has its own date filter and
 // includes any pre-build runs that landed in the May 1–3 transition window.
-// Derived from race.ts BUILD_START_ISO — keep in sync.
-export const BUILD_START = new Date(Date.UTC(2026, 4, 4));   // Mon 4 May (= BUILD_START_ISO)
-export const RACE_DAY = new Date(Date.UTC(2026, 8, 27));     // Sun 27 Sept
+// Both come from config/race.json (via lib/config), so a fork edits JSON and
+// nothing here. Imported from ./config rather than ./race because race.ts
+// imports this module, and the other direction would be a cycle.
+//
+// The week grid assumes buildStartDate is a Monday and raceDate the Sunday
+// that closes the final week. The shipped example config satisfies both.
+export const BUILD_START = new Date(`${BUILD_START_ISO}T00:00:00Z`);
+export const RACE_DAY = CONFIGURED_RACE_DATE;
 
 function mondayOfWeek(idx: number): string {
   const d = new Date(BUILD_START);
@@ -131,22 +138,29 @@ const RAW: Array<Omit<PlanWeek, "weekStart">> = [
   { weekIdx: 7,  phase: "Build", weeklyKm: 62, longRunKm: 26, note: "Build phase opens. Long run with last 5 km @ MP." },
   { weekIdx: 8,  phase: "Build", weeklyKm: 65, longRunKm: 27, mpSegment: true, note: "10 km @ MP inside the long run on Sunday." },
   { weekIdx: 9,  phase: "Build", weeklyKm: 68, longRunKm: 28, note: "Threshold session — 5×6 min." },
-  // ——— Revised 2026-07-07 after the late-June flat spell (travel + interview
-  // stack + heat-broken 26 km on Jun 21 → volume collapsed to 10/6/6 km).
-  // Physiology stayed strong (HRV 107–120, RHR 41–43) — this is a re-entry
-  // ramp, not an injury rebuild. Peak volume capped at ~70 km (was 82):
-  // In practice this athlete never exceeded 55 km; consistency beats peak volume.
-  // ——— Revised mid-block for a three-week trip with no gym access:
-  // more weekly miles — recovery conditions are ideal (9 h sleep, afternoon
-  // rest, no work stack). Fri rest days become slow 5 km recovery runs;
-  // targets step 65 → 71 → 57 → 75. Cap raised from ~70 to ~75 for Wk 16
-  // only. Guardrail: added mileage is all recovery-pace — any niggle and the
-  // Fri 5 ks are the first thing dropped.
-  { weekIdx: 10, phase: "Build", weeklyKm: 25, longRunKm: 14, cutback: true, note: "Reset week. Fatigue caught up — easy running only, pilates counts. Gentle 14 km reintroduction long run, no watch pressure." },
-  { weekIdx: 11, phase: "Build", weeklyKm: 54, longRunKm: 18, note: "Rebuild 1 built around the Sun 19 Jul 10 km test (A-goal audition). Long run pulled to Wed so legs are fresh to race Sunday. Both Hyrox dropped — no hard cross-training before the test. Everything easy Z2 except the test." },
+  // Weeks 10 to 12 are a worked example of the plan bending rather than
+  // breaking. A stretch of disrupted weeks (life load plus one long run
+  // abandoned to heat) collapsed volume, while the recovery markers stayed
+  // healthy. That combination calls for a re-entry ramp, not an injury
+  // rebuild: cut the cutback week hard, rebuild in two controlled steps, and
+  // lower the peak-volume cap rather than trying to win the lost kilometres
+  // back. Consistency beats peak volume, and a plan that is defended against
+  // what actually happened is just a guilt generator.
+  //
+  // Later weeks show the opposite adjustment. A travel block with good sleep
+  // and no gym access is a chance to add easy volume, so rest days become slow
+  // recovery runs and the cap goes up for one peak week only. The guardrail
+  // matters more than the number: every added kilometre is recovery pace, and
+  // those runs are the first thing dropped at the first niggle.
+  //
+  // Replace this whole array with your own block. Keep the notes about
+  // training decisions, and keep your biometric readings out of them: this
+  // file is compiled into the client bundle.
+  { weekIdx: 10, phase: "Build", weeklyKm: 25, longRunKm: 14, cutback: true, note: "Reset week. Easy running only, cross-training counts. Gentle 14 km reintroduction long run, no watch pressure." },
+  { weekIdx: 11, phase: "Build", weeklyKm: 54, longRunKm: 18, note: "Rebuild 1, built around a 10 km test at the end of the week (A-goal audition). Long run pulled midweek so the legs are fresh to race. Cross-training dropped: nothing hard before a test. Everything easy Z2 except the test itself." },
   { weekIdx: 12, phase: "Build", weeklyKm: 52, longRunKm: 24, note: "Rebuild 2. Optional 10 km tune-up as a rust-buster at controlled effort — only if energy is genuinely back." },
   { weekIdx: 13, phase: "Build", weeklyKm: 65, longRunKm: 26, mpSegment: true, note: "Build resumes. Long run with last 5 km @ MP. Weekly speed block starts: at least one VO₂ session per week, Yasso 800s every Monday through Peak." },
-  { weekIdx: 14, phase: "Build", weeklyKm: 71, longRunKm: 28, mpSegment: true, note: "Mon: 🏁 10 km TT — the A-goal audition rescheduled from Jul 19. Long run drops its MP segment this week (TT covers intensity); keep the fuel-cadence rehearsal." },
+  { weekIdx: 14, phase: "Build", weeklyKm: 71, longRunKm: 28, mpSegment: true, note: "10 km time trial to open the week: the A-goal audition, rescheduled after the disrupted block. Long run drops its MP segment (the TT covers intensity); keep the fuel-cadence rehearsal." },
   // Peak (15–18): highest load, longest runs, race-rehearsal
   { weekIdx: 15, phase: "Peak",  weeklyKm: 57, longRunKm: 22, cutback: true, note: "Cutback — protect the adaptation before the two biggest weeks. Light Yasso dose + Fri recovery 5 km stay in." },
   { weekIdx: 16, phase: "Peak",  weeklyKm: 75, longRunKm: 32, mpSegment: true, note: "Biggest week of the build: 32 km long run (last 12 km @ MP) at the new 75 km cap." },

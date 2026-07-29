@@ -37,6 +37,24 @@
   ],
   "targetTier": "Realistic",
 
+  "_photoStripComment": "Optional. The photo strip on the public page. Ships null so the whole section hides, because the images it wants live in dashboard/public/media/ and .gitignore excludes image files wholesale, so no fork inherits anyone's photos. Set the four strings and drop your own images in to turn it on.",
+  "photoStrip": null,
+  "_photoStripShape": {
+    "eyebrow": "Small label above the heading, e.g. Cross-training",
+    "heading": "The line that carries it, e.g. Race weekend, earlier this month.",
+    "aside": "Handwritten-style note to the right, e.g. legs still remember it.",
+    "caption": "Footer credit under the strip",
+    "mediaDir": "Folder under dashboard/public/ holding 01.jpg, 02.jpg, 03.jpg"
+  },
+
+  "_planRevisionComment": "Optional. Coach's most recent plan-revision note, rendered as a banner on the training page. Ships null so the banner hides. Write it as plain prose about the training decision, never with real biometric readings in it: this string is inlined into the client bundle, and it renders on the public page too if you enable one.",
+  "planRevision": null,
+  "_planRevisionShape": {
+    "date": "Human-readable revision date, e.g. 28 Jul 2026",
+    "tag": "Two or three words for the chip, e.g. speed block",
+    "body": "What changed and why, in a sentence or two."
+  },
+
   "phases": [
     { "name": "Base",      "untilDaysToRace": 999 },
     { "name": "Build",     "untilDaysToRace": 112 },

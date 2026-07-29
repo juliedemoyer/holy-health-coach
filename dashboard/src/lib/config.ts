@@ -59,6 +59,32 @@ function isoDaysFromNow(n: number): string {
 
 export const BUILD_START_ISO = IS_DEMO ? isoDaysFromNow(-56) : race.buildStartDate;
 
+/**
+ * Optional plan-revision banner on the training page. Ships null.
+ *
+ * Deliberately config-driven: an earlier version hardcoded one athlete's
+ * revision note, complete with their HRV and VO2max readings, into the
+ * component. Every fork then rendered a stranger's biometrics to its own user.
+ */
+export const PLAN_REVISION = (race as {
+  planRevision?: { date: string; tag: string; body: string } | null;
+}).planRevision ?? null;
+
+/**
+ * Optional photo strip on the public page. Ships null, so the section hides.
+ * The images it points at are gitignored, so a fork starts with nothing to
+ * show and no broken frames.
+ */
+export const PHOTO_STRIP = (race as {
+  photoStrip?: {
+    eyebrow: string;
+    heading: string;
+    aside: string;
+    caption: string;
+    mediaDir: string;
+  } | null;
+}).photoStrip ?? null;
+
 export const THRESHOLDS = thresholds;
 export const SUPPLEMENTS = supplements as {
   prioritySource: string;

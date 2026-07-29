@@ -245,7 +245,7 @@ figure in someone else's README.
 | File | Controls |
 |---|---|
 | `config/athlete.json` | Who is being coached: name, dietary pattern, the specialist roster |
-| `config/race.json` | The goal race, the goal tiers, build start, phase boundaries |
+| `config/race.json` | The goal race, the goal tiers, build start, phase boundaries. Also the two optional narrative blocks, both **shipping null**: `planRevision` (the coach's latest plan-change banner on /training) and `photoStrip` (the photo section on /public) |
 | `config/thresholds.json` | Every colour cut the dashboard uses. Placeholders, not advice |
 | `config/dna-insights.json` | Optional genomics notes. **Ships empty** |
 | `config/supplements.json` | Optional supplement card. **Ships empty** |
@@ -292,6 +292,13 @@ figure in someone else's README.
   what protects the data behind it.
 - `.gitignore` covers `.env.local`, and body photos, medical documents and
   exports are excluded wholesale.
+- **Nothing in `src/` should hardcode a reading, a date, a place or a race
+  result.** It all comes through `lib/config.ts` from `config/*.json`, so a
+  fork edits JSON and never touches component code. This is worth enforcing
+  rather than trusting: earlier revisions of this repo had one athlete's HRV,
+  resting heart rate, VO2max and half-marathon time written into two
+  components, which meant every fork rendered a stranger's biometrics to its
+  own user. `grep` your own numbers before you publish.
 - The agents have **no write access to app code or schema**, and no ability
   to send anything. Plan changes are proposals you confirm.
 

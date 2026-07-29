@@ -35,6 +35,7 @@ import {
   type SessionKind,
 } from "@/lib/coachPlan";
 import { AGENTS, AgentAvatar } from "@/components/AgentAvatar";
+import { PLAN_REVISION } from "@/lib/config";
 import { Empty, PageHeader } from "@/pages/Vitals";
 
 type Activity = Database["public"]["Tables"]["activities"]["Row"];
@@ -281,37 +282,40 @@ export function Training() {
         <StravaSync />
       </div>
 
-      {/* PLAN REVISION FLAG — 2026-07-07 re-entry ramp after the flat spell */}
-      <div
-        className="holy-card p-4 sm:p-5"
-        style={{ borderColor: AGENTS.coach.hueSoft, background: AGENTS.coach.hueTint }}
-      >
-        <div className="flex items-start gap-3">
-          <span aria-hidden className="text-lg leading-none mt-0.5">🔄</span>
-          <div className="flex-1 min-w-0">
-            <div className="flex items-baseline gap-2 flex-wrap">
-              <span
-                className="text-[11px] uppercase tracking-[0.16em] font-bold"
-                style={{ color: AGENTS.coach.hue }}
-              >
-                Plan revised · 28 Jul 2026
-              </span>
-              <span className="text-[10px] uppercase tracking-[0.14em] text-[--color-ink-dim]">
-                · speed block
-              </span>
-            </div>
-            <div className="text-[13px] text-[--color-ink-mid] mt-1.5 leading-snug">
-              Re-entry ramp (Wks 10–12) complete — KPIs green again (HRV 106–112, RHR 42–44), so the
-              7&nbsp;Jul "easy-only" restriction is lifted. From Wk&nbsp;13: <strong>minimum one VO₂ speed
-              session per week</strong> (Yasso 800s @ 3:25/rep, building 6→8→10 reps) — target
-              VO₂max 54.1&nbsp;→&nbsp;55. The skipped 10&nbsp;km test is rescheduled as a solo TT on
-              <strong> Mon 3 Aug</strong> (A-goal audition). Wk&nbsp;13's long run moves to <strong>Fri
-              31&nbsp;Jul</strong> so the TT gets two easy days behind it; Wk&nbsp;14 onward long runs
-              return to their Wednesday keystone slot. Cross-training drops out entirely during travel blocks: running only.
+      {/*
+        PLAN REVISION BANNER — from config/race.json, hidden when planRevision
+        is null. Do not hardcode a revision note here: this component renders
+        in every fork, and the previous hardcoded version shipped one athlete's
+        HRV, resting HR and VO2max readings to all of them.
+      */}
+      {PLAN_REVISION && (
+        <div
+          className="holy-card p-4 sm:p-5"
+          style={{ borderColor: AGENTS.coach.hueSoft, background: AGENTS.coach.hueTint }}
+        >
+          <div className="flex items-start gap-3">
+            <span aria-hidden className="text-lg leading-none mt-0.5">🔄</span>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-baseline gap-2 flex-wrap">
+                <span
+                  className="text-[11px] uppercase tracking-[0.16em] font-bold"
+                  style={{ color: AGENTS.coach.hue }}
+                >
+                  Plan revised · {PLAN_REVISION.date}
+                </span>
+                {PLAN_REVISION.tag && (
+                  <span className="text-[10px] uppercase tracking-[0.14em] text-[--color-ink-dim]">
+                    · {PLAN_REVISION.tag}
+                  </span>
+                )}
+              </div>
+              <div className="text-[13px] text-[--color-ink-mid] mt-1.5 leading-snug">
+                {PLAN_REVISION.body}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* COACH'S READ — note + still-to-go (current or next week) */}
       {displayedWeek && displayedWhatsLeft && (
@@ -1084,8 +1088,8 @@ function FormulaExplainer() {
                 endurance-decay exponent) applied to your race-equivalent
                 efforts ≥ 10 km — we take the <em>fastest</em> projection, not
                 the median, because Riegel assumes a hard effort and your easy
-                Z2 long runs would otherwise drag the number slow (your 1:37
-                Paris half projects to ~3:21). <strong>VO₂max:</strong> velocity
+                Z2 long runs would otherwise drag the number slow (a 1:37 half
+                projects to roughly 3:21, for instance). <strong>VO₂max:</strong> velocity
                 at VO₂max from the ACSM equation, held at ~80% over the
                 marathon. Averaging the two keeps best-effort Riegel honest
                 (it ignores marathon fade) and lets the estimate track your
@@ -1170,7 +1174,7 @@ function FormulaRow({
  *     finish time badly (it was reading ~4:18 off easy 6:00+/km mileage). We
  *     instead take the **fastest** projection across her race-equivalent
  *     efforts (runs ≥ 10 km) — i.e. what she's actually demonstrated she can
- *     run, e.g. her 1:37 Paris half → ~3:21 equivalent.
+ *     run, e.g. a 1:37 half projects to a ~3:21 marathon equivalent.
  *
  *  2. **VO₂max physiology.** ACSM running economy gives velocity at VO₂max
  *     (v = (VO₂max − 3.5)/0.2 m/min); a trained recreational marathoner holds

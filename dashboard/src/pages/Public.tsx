@@ -23,7 +23,13 @@ import { KPIInfo } from "@/components/KPIInfo";
 import { sanitizeInterview } from "@/lib/sanitize";
 import { rank, fitnessAge, type KPIKey } from "@/lib/percentiles";
 import { age as chronoAge } from "@/lib/profile";
-import { APP_NAME, RACE_NAME, RACE_SHORT_NAME } from "@/lib/config";
+import { APP_NAME, PHOTO_STRIP, RACE_NAME, RACE_SHORT_NAME } from "@/lib/config";
+
+/**
+ * Local alias so the null check narrows inside the .map() callback below.
+ * TypeScript will not carry narrowing of an imported binding into a closure.
+ */
+const photoStrip = PHOTO_STRIP;
 
 const WEEKLY_QUOTES: {
   text: string;
@@ -348,62 +354,63 @@ export function Public() {
           </div>
         </section>
 
-        {/* ── Paris × Hyrox photo strip — T4 motif ── */}
-        <section className="mb-16 sm:mb-20">
-          <div className="flex items-end justify-between mb-5 gap-3 flex-wrap">
-            <div>
-              <div className="fn-meta mb-1">T4 · Paris × Hyrox</div>
-              <h2 className="fn-numeral text-3xl sm:text-4xl" style={{ fontWeight: 600 }}>
-                Lisbon, earlier this month.
-              </h2>
+        {/*
+          Optional photo strip, from config/race.json. Hidden entirely when
+          photoStrip is null, which is how it ships: the images live under
+          dashboard/public/ and .gitignore excludes image files wholesale, so
+          no fork inherits anyone's photos. Every string here used to be
+          hardcoded with one athlete's races and cities.
+        */}
+        {photoStrip && (
+          <section className="mb-16 sm:mb-20">
+            <div className="flex items-end justify-between mb-5 gap-3 flex-wrap">
+              <div>
+                <div className="fn-meta mb-1">{photoStrip.eyebrow}</div>
+                <h2 className="fn-numeral text-3xl sm:text-4xl" style={{ fontWeight: 600 }}>
+                  {photoStrip.heading}
+                </h2>
+              </div>
+              <div className="fn-hand text-lg" style={{ color: "var(--fn-terracotta)" }}>
+                {photoStrip.aside}
+              </div>
             </div>
-            <div className="fn-hand text-lg" style={{ color: "var(--fn-terracotta)" }}>
-              hyrox in the legs.
-            </div>
-          </div>
 
-          <div className="grid grid-cols-3 gap-2 sm:gap-3">
-            {[1, 2, 3].map((n) => (
-              <figure
-                key={n}
-                className="relative overflow-hidden aspect-[4/5]"
-                style={{
-                  border: "1px solid rgba(28,28,30,0.10)",
-                  borderRadius: "2px",
-                  background: "var(--fn-bone)",
-                }}
-              >
-                {/*
-                  Photos live in dashboard/public/media/hyrox/ and are NOT in
-                  the repo (.gitignore excludes image files wholesale, so a
-                  fork never inherits anyone's photos). Drop your own in, or
-                  leave the folder empty and each figure falls back to the
-                  empty frame below instead of a broken-image icon.
-                */}
-                <img
-                  src={`/media/hyrox/0${n}.jpg`}
-                  alt={`Hyrox Lisbon, frame ${n}`}
-                  loading="lazy"
-                  className="w-full h-full"
-                  style={{ objectFit: "cover", display: "block" }}
-                  onError={(e) => { e.currentTarget.style.display = "none"; }}
-                />
-                <figcaption
-                  className="absolute bottom-2 left-2 fn-footnote"
+            <div className="grid grid-cols-3 gap-2 sm:gap-3">
+              {[1, 2, 3].map((n) => (
+                <figure
+                  key={n}
+                  className="relative overflow-hidden aspect-[4/5]"
                   style={{
-                    background: "var(--fn-limestone)",
-                    padding: "2px 6px",
+                    border: "1px solid rgba(28,28,30,0.10)",
+                    borderRadius: "2px",
+                    background: "var(--fn-bone)",
                   }}
                 >
-                  N°{String(n).padStart(3, "0")}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-          <div className="fn-meta mt-3 text-right">
-            HYROX Lisbon · 2026 · captured
-          </div>
-        </section>
+                  <img
+                    src={`/${photoStrip.mediaDir}/0${n}.jpg`}
+                    alt={`${photoStrip.eyebrow}, frame ${n}`}
+                    loading="lazy"
+                    className="w-full h-full"
+                    style={{ objectFit: "cover", display: "block" }}
+                    onError={(e) => { e.currentTarget.style.display = "none"; }}
+                  />
+                  <figcaption
+                    className="absolute bottom-2 left-2 fn-footnote"
+                    style={{
+                      background: "var(--fn-limestone)",
+                      padding: "2px 6px",
+                    }}
+                  >
+                    N°{String(n).padStart(3, "0")}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+            <div className="fn-meta mt-3 text-right">
+              {photoStrip.caption}
+            </div>
+          </section>
+        )}
 
         {/* ── Weekly quote — T2 motif ── */}
         {(() => {
