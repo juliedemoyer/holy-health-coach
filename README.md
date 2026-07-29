@@ -191,12 +191,15 @@ For a real instance:
 
 ## Cost
 
-The dashboard costs nothing to run beyond Supabase's free tier. The agent
-side is one orchestration pass per morning: Coach plus one to three
-specialists, each with a small context. On Sonnet with Haiku for retrieval,
-expect roughly **$2-5/month**. The largest variable is how often the
-conditional specialists actually fire, which is the point of the trigger
-tables.
+The dashboard runs inside Supabase's free tier. The agent side is one
+orchestration pass per morning: Coach plus one to three specialists, each with
+a small context, on Sonnet with Haiku for retrieval.
+
+What you actually pay turns almost entirely on how often the conditional
+specialists fire, which is the whole point of the trigger tables: waking all
+four every morning costs four times as much and produces a wall of text nobody
+reads by Thursday. Price it against current model rates rather than trusting a
+figure in someone else's README.
 
 ## Design decisions
 
@@ -212,10 +215,13 @@ tables.
   architectural: the doctor persona has no write access, its only outputs are
   a flag level and an escalation path, and the escalation path is a required
   field. See [docs/SAFETY.md](docs/SAFETY.md).
-- **Nothing personal in code.** Height, date of birth, and sex come from env
-  vars, not from a committed file. The genomics and supplement panels ship
+- **Nothing personal in the repo.** Height, date of birth and sex come from env
+  vars rather than a committed file, and the genomics and supplement panels ship
   empty on purpose: that is the most identifying health data there is, and no
-  example set belongs in a public repository.
+  example set belongs in a public repository. Read the caveat in Security and
+  privacy notes before you trust the env-var half of that sentence: `VITE_`
+  variables are inlined into the client bundle, so they are out of the repo but
+  not out of public view.
 - **The plan bends to reality.** Illness, travel, and a bad week edit the
   plan rather than being scored against it. A training plan that is defended
   against what actually happened is just a guilt generator.
@@ -261,9 +267,19 @@ tables.
   athlete's public page. It is unlikely to be yours.
 - Demo mode (`?demo=1`) bypasses auth by design. It also short-circuits every
   write, so it cannot touch a real project. Do not extend it to real data.
-- Personal constants (height, date of birth, sex) are read from env vars.
-  Keep them there. `.gitignore` covers `.env.local`, and body photos, medical
-  documents and exports are excluded wholesale.
+- **`VITE_` env vars are public. All of them.** Vite inlines every variable
+  with that prefix into the client bundle at build time, so
+  `VITE_BIRTHDATE`, `VITE_HEIGHT_CM` and `VITE_SEX` end up as literal strings
+  in the JavaScript your deployment serves. Keeping them out of a committed
+  file moves them from the repo into the bundle; it does not make them private,
+  and a deploy-target secret does not change that either. Treat anything
+  `VITE_`-prefixed as published. If you want those three values genuinely
+  private, put them in the RLS-locked `config` table and read them after
+  sign-in, or leave them unset and accept the `config/athlete.json` fallbacks.
+  The anon key is the one `VITE_` value that is *designed* to be public: RLS is
+  what protects the data behind it.
+- `.gitignore` covers `.env.local`, and body photos, medical documents and
+  exports are excluded wholesale.
 - The agents have **no write access to app code or schema**, and no ability
   to send anything. Plan changes are proposals you confirm.
 
