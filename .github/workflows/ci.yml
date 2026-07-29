@@ -1,0 +1,41 @@
+name: CI
+
+# Typecheck and build the dashboard with no secrets present. deploy.yml wires
+# in the real Supabase and Cloudflare credentials; this job proves the code
+# compiles on a fresh clone, which is the part a fork can actually verify.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  check:
+    name: typecheck + config
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: dashboard/package-lock.json
+
+      - name: Install dashboard dependencies
+        working-directory: dashboard
+        run: npm ci
+
+      - name: Typecheck
+        working-directory: dashboard
+        run: npm run lint
+
+      - name: Validate every JSON config
+        run: |
+          fail=0
+          for f in $(git ls-files '*.json' ':!:**/package-lock.json'); do
+            jq empty "$f" || { echo "::error file=$f::invalid JSON"; fail=1; }
+          done
+          exit $fail

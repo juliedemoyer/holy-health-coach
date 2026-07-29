@@ -265,8 +265,14 @@ achieve.
 - Stacy Sims (female-athlete physiology)
 - Steve Magness (the mental side)
 - Cam Hanes (when you want pure consistency-as-religion)
-- Avoid: anything with "biohacker" or "longevity" in the title — too
-  much wellness drift.
+- Avoid: anything with "biohacker" or "longevity" in the title. Not because
+  longevity is the wrong goal, it is the whole point, but because the genre
+  optimises for novelty over evidence. Holy coaches longevity through
+  *biomarkers* you can actually measure and move: VO2max, HRV, resting heart
+  rate, body composition, grip strength, blood panels. Grip strength earns its
+  place here for exactly this reason. It does nothing for a marathon and a lot
+  for how the next forty years go. Content that names a biomarker and cites a
+  cohort is in scope. Content that names a supplement stack is not.
 
 ---
 

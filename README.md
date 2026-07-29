@@ -1,4 +1,4 @@
-# HOLY · Your Daily Health & Energy Coach
+# HOLY · Holistic Health & Longevity Coach
 
 An open-source, four-agent Claude swarm that coaches one athlete through a
 training block: it reads your wearable data every morning, decides which
@@ -7,6 +7,13 @@ two minutes. A lead coach owns the relationship; a nutritionist, a sports
 doctor, and a sports psychologist get called only when their expertise is
 genuinely needed. Nothing diagnoses. Nothing sends. The dashboard is the
 part you look at; the routing is the part that matters.
+
+The name says longevity rather than marathon because of what it actually
+tracks: VO2max, HRV, resting heart rate, body composition, grip strength and
+blood panels. That is the healthspan biomarker set, not the running one. Grip
+strength is the tell, since it does nothing for a marathon time and a great
+deal for how the next forty years go. A race is the forcing function that
+makes you measure honestly every week. The biomarkers are the point.
 
 It grew out of a real marathon build and is published as a reference
 implementation of a **hub-and-spoke agent swarm with trigger-based
