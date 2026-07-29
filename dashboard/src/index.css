@@ -1,0 +1,298 @@
+@import "tailwindcss";
+
+/* Holy V3.2 — Microsoft Fluent-inspired palette.
+   Cleaner whites, real depth via elevation, signature colors per agent. */
+@theme {
+  /* Surfaces */
+  --color-bg: #F4EFE6;
+  --color-surface: #ffffff;
+  --color-surface-2: #EDE7D9;
+  --color-surface-elev: #ffffff;
+
+  /* Borders + dividers */
+  --color-border: rgba(15, 15, 25, 0.08);
+  --color-border-strong: rgba(15, 15, 25, 0.16);
+
+  /* Text */
+  --color-ink: #1a1a23;
+  --color-ink-mid: #4a4a55;
+  --color-ink-dim: #797984;
+
+  /* Brand accents */
+  --color-accent: #0078d4;     /* primary action / link / focus */
+  --color-accent-deep: #005a9e;
+  --color-accent-soft: rgba(0, 120, 212, 0.08);
+
+  /* Semantic */
+  --color-good: #107c10;
+  --color-good-soft: rgba(16, 124, 16, 0.10);
+  --color-warn: #ca5010;
+  --color-warn-soft: rgba(202, 80, 16, 0.10);
+  --color-bad: #c50f1f;
+  --color-bad-soft: rgba(197, 15, 31, 0.10);
+
+  /* Agents — each gets a signature hue used wherever they speak */
+  --color-coach: #0e8a4f;       /* sage-evolved green; athletic, grounded */
+  --color-coach-soft: rgba(14, 138, 79, 0.10);
+  --color-coach-tint: rgba(14, 138, 79, 0.04);
+
+  --color-nutri: #d04a02;       /* coral; pescatarian / fuel / warmth */
+  --color-nutri-soft: rgba(208, 74, 2, 0.10);
+  --color-nutri-tint: rgba(208, 74, 2, 0.04);
+
+  --color-doc: #0078d4;         /* clinical Microsoft blue */
+  --color-doc-soft: rgba(0, 120, 212, 0.10);
+  --color-doc-tint: rgba(0, 120, 212, 0.04);
+
+  --color-mind: #6b46c1;        /* depth purple; psychology */
+  --color-mind-soft: rgba(107, 70, 193, 0.10);
+  --color-mind-tint: rgba(107, 70, 193, 0.04);
+
+  /* Race / urgency */
+  --color-race: #c50f1f;        /* race-day red */
+  --color-race-soft: rgba(197, 15, 31, 0.10);
+
+  /* Typography */
+  --font-display: "Space Grotesk", "Segoe UI Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", "Segoe UI Variable", ui-sans-serif, system-ui, sans-serif;
+
+  /* Elevation */
+  --shadow-1: 0 1px 2px rgba(15, 15, 25, 0.04), 0 1px 1px rgba(15, 15, 25, 0.03);
+  --shadow-2: 0 2px 4px rgba(15, 15, 25, 0.06), 0 4px 12px rgba(15, 15, 25, 0.04);
+  --shadow-3: 0 4px 8px rgba(15, 15, 25, 0.08), 0 12px 32px rgba(15, 15, 25, 0.06);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "ss01", "cv11";
+}
+
+body {
+  background-image:
+    radial-gradient(circle at 0% 0%, rgba(0, 120, 212, 0.04) 0%, transparent 40%),
+    radial-gradient(circle at 100% 0%, rgba(208, 74, 2, 0.03) 0%, transparent 40%),
+    radial-gradient(circle at 50% 100%, rgba(14, 138, 79, 0.04) 0%, transparent 50%);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.018em;
+  color: var(--color-ink);
+}
+
+/* The card surface that 90% of UI sits on. */
+.holy-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  box-shadow: var(--shadow-1);
+}
+
+.holy-card-elevated {
+  background: var(--color-surface-elev);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-2);
+}
+
+.holy-divider {
+  height: 1px;
+  background: var(--color-border);
+  width: 100%;
+}
+
+/* Tint backgrounds for agent-owned blocks */
+.tint-coach { background: var(--color-coach-tint); border-color: var(--color-coach-soft); }
+.tint-nutri { background: var(--color-nutri-tint); border-color: var(--color-nutri-soft); }
+.tint-doc   { background: var(--color-doc-tint);   border-color: var(--color-doc-soft); }
+.tint-mind  { background: var(--color-mind-tint);  border-color: var(--color-mind-soft); }
+
+/* Subtle gradient overlay used on hero card */
+.gradient-hero {
+  background:
+    linear-gradient(135deg, rgba(0, 120, 212, 0.05) 0%, transparent 40%),
+    linear-gradient(225deg, rgba(208, 74, 2, 0.04) 0%, transparent 40%),
+    var(--color-surface);
+}
+
+.safe-pb {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Numbers should be tabular (charts, counters) */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Field Notes — scoped aesthetic for /public ONLY.
+   Mirrors the Instagram template brief (06-recurring-post-templates).
+   Activated by wrapping the page in <div class="field-notes">.
+   Nothing here leaks into the private Holy dashboard.
+   ───────────────────────────────────────────────────────────── */
+.field-notes {
+  /* Palette — locked to the IG template tokens */
+  --fn-limestone: #F4EFE6;
+  --fn-bone:      #EDE7D9;
+  --fn-ink:       #1C1C1E;
+  --fn-accent:    #1E3A8A;
+  --fn-terracotta:#C9542B;
+  --fn-coral:     #E76F51;
+  --fn-pavement:  #9A9A95;
+  --fn-highlight: #F2D24E;
+
+  /* Font stack — Cormorant display, JetBrains mono meta, Caveat handwritten */
+  --fn-serif: "Cormorant Garamond", "GT Sectra", Georgia, serif;
+  --fn-mono:  "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --fn-hand:  "Caveat", "Bradley Hand", cursive;
+
+  background: var(--fn-limestone);
+  color: var(--fn-ink);
+  font-family: var(--fn-serif);
+  /* Faint paper grain — subtle, 8-12% opacity */
+  background-image:
+    repeating-radial-gradient(
+      circle at 20% 30%,
+      rgba(28, 28, 30, 0.018) 0,
+      rgba(28, 28, 30, 0.018) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    repeating-radial-gradient(
+      circle at 70% 70%,
+      rgba(28, 28, 30, 0.014) 0,
+      rgba(28, 28, 30, 0.014) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+}
+
+.field-notes h1,
+.field-notes h2,
+.field-notes h3,
+.field-notes h4 {
+  font-family: var(--fn-serif);
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--fn-ink);
+}
+
+/* Mono small-caps timestamp / label — the recurring T8 top-left motif */
+.fn-meta {
+  font-family: var(--fn-mono);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fn-pavement);
+}
+
+.fn-meta-ink {
+  font-family: var(--fn-mono);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fn-ink);
+}
+
+/* Accent thin hairline rule — left-aligned, 120px */
+.fn-rule {
+  display: inline-block;
+  width: 120px;
+  height: 1px;
+  background: var(--fn-accent);
+  vertical-align: middle;
+}
+.fn-rule-wide {
+  display: block;
+  width: 200px;
+  height: 1px;
+  background: var(--fn-accent);
+}
+
+/* Handwritten margin note — Caveat, terracotta, slightly angled */
+.fn-hand {
+  font-family: var(--fn-hand);
+  color: var(--fn-terracotta);
+  font-style: italic;
+  display: inline-block;
+  transform: rotate(-3deg);
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+/* Editorial card — Bone surface, ink hairline border, no rounded corners */
+.fn-card {
+  background: var(--fn-bone);
+  border: 1px solid rgba(28, 28, 30, 0.08);
+  padding: 1.5rem;
+  border-radius: 2px;
+}
+
+/* Vitals grid — white cards so they pop against the limestone page bg */
+.fn-vitals-grid .fn-card {
+  background: #ffffff;
+}
+
+/* Hero numeral — enormous Cormorant, like T8 */
+.fn-numeral {
+  font-family: var(--fn-serif);
+  font-weight: 700;
+  color: var(--fn-ink);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Field Note N°XXX footer label */
+.fn-footnote {
+  font-family: var(--fn-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  color: var(--fn-pavement);
+}
+
+/* Section header — small caps mono + hairline */
+.fn-section-label {
+  font-family: var(--fn-mono);
+  font-weight: 600;
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--fn-ink);
+}
+
+/* Quote — italic Cormorant */
+.fn-quote {
+  font-family: var(--fn-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--fn-ink);
+  line-height: 1.45;
+}
+
+/* Body prose */
+.fn-prose {
+  font-family: var(--fn-serif);
+  font-weight: 400;
+  color: var(--fn-ink);
+  line-height: 1.55;
+}
+
+/* Terracotta accent text */
+.fn-terracotta { color: var(--fn-terracotta); }
+.fn-accent     { color: var(--fn-accent); }
+.fn-pavement   { color: var(--fn-pavement); }
+.fn-coral      { color: var(--fn-coral); }

@@ -1,0 +1,19 @@
+{
+  "_comment": "Optional. A reference card for whatever you and a clinician have actually agreed you take. It ships EMPTY on purpose. A supplement regimen is medical information about a specific person, no example set belongs in a public repository, and the dashboard simply hides the card when both lists are empty.",
+
+  "_caution": "Nothing here is advice. Doses interact with medication, with each other, and with conditions this app knows nothing about. Fill this in from a conversation with a clinician who has seen your bloods, not from a search result and not from an agent.",
+
+  "_shape": {
+    "emoji": "Any single emoji",
+    "name": "What it is",
+    "detail": "Dose, timing, food sources, anything you want to remember"
+  },
+
+  "prioritySource": "",
+  "priority": [],
+
+  "generalSource": "",
+  "general": [],
+
+  "probiotic": null
+}

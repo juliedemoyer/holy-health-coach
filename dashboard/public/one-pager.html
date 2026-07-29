@@ -1,0 +1,1193 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<title>Holy — AI Holistic Health & Longevity Coach · One-Pager</title>
+<meta name="viewport" content="width=1200">
+<meta name="theme-color" content="#EDE7D9">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,300&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #EDE7D9;
+    --surface: #E8E2D5;
+    --surface-2: #E4DDD0;
+    --surface-3: #DED6C6;
+    --border: rgba(28,25,20,0.10);
+    --border-strong: rgba(28,25,20,0.18);
+    --text: #1C1914;
+    --text-mid: #5A5347;
+    --text-dim: #8A8278;
+    --rust: #B34E2A;
+    --rust-dim: rgba(179,78,42,0.12);
+    --rust-dim2: rgba(179,78,42,0.05);
+    --rust-deep: #8B3A1C;
+    --sage: #5E8A56;
+    --sage-light: #7AA66E;
+    --walter: #A07850;
+    --green: #2d6a4f;
+    --font-display: 'Space Grotesk', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #D4CDBD; color: var(--text); font-family: var(--font-body); font-weight: 300; }
+  body { padding: 32px 0; }
+
+  /* A4 landscape at ~96dpi → 1123x794. Use 1200x849 for crisper typography, maintaining √2 ratio. */
+  .page {
+    width: 1200px;
+    height: 849px;
+    margin: 0 auto 28px;
+    background: var(--bg);
+    color: var(--text);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+  }
+  .page::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.035;
+    pointer-events: none;
+    z-index: 50;
+  }
+
+  /* Topbar */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 36px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(237,231,217,0.88);
+    flex-shrink: 0;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .brand-mark {
+    width: 28px; height: 28px;
+    background: var(--rust);
+    color: #fff;
+    display: grid; place-items: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: -0.02em;
+  }
+  .brand-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+  }
+  .brand-title .agent { color: var(--rust); }
+  .topbar-right {
+    display: flex; align-items: center; gap: 20px;
+    font-family: var(--font-display);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .topbar-right .sep { opacity: 0.35; }
+  .page-num {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--text);
+  }
+  .page-num b { color: var(--rust); font-weight: 600; }
+
+  /* Generic label with rule */
+  .label {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .label::before {
+    content: '';
+    display: inline-block;
+    width: 20px; height: 1px;
+    background: currentColor;
+    flex-shrink: 0;
+  }
+  .label.no-rule::before { display: none; }
+  .label.rust { color: var(--rust); }
+
+  /* Page 1 layout */
+  .p1-hero {
+    padding: 18px 36px 14px;
+    display: grid;
+    grid-template-columns: 1.45fr 1fr;
+    gap: 48px;
+    align-items: end;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    font-size: 46px;
+    line-height: 0.98;
+    margin: 8px 0 10px;
+  }
+  .hero-title .amp {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--rust);
+  }
+  .hero-sub {
+    font-family: var(--font-body);
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--text-mid);
+    max-width: 560px;
+    font-weight: 300;
+  }
+  .hero-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 4px;
+  }
+  .meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: var(--font-body);
+    font-size: 12px;
+    padding: 6px 0;
+    border-top: 1px solid var(--border);
+  }
+  .meta-row:last-child { border-bottom: 1px solid var(--border); }
+  .meta-row .k {
+    font-family: var(--font-display);
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .meta-row .v {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+
+  /* Metrics strip */
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    border-bottom: 1px solid var(--border);
+  }
+  .metric {
+    padding: 12px 22px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    position: relative;
+  }
+  .metric:last-child { border-right: none; }
+  .metric .v {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 26px;
+    letter-spacing: -0.025em;
+    line-height: 1;
+    color: var(--text);
+  }
+  .metric .v .unit {
+    font-size: 14px; color: var(--text-dim); margin-left: 2px; font-weight: 500;
+  }
+  .metric .k {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 6px;
+  }
+  .metric.accent .v { color: var(--rust); }
+
+  /* Three-card system */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .card {
+    padding: 14px 22px 16px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border-top: 2px solid var(--rust);
+  }
+  .card:nth-child(2) { border-top-color: var(--sage); }
+  .card:nth-child(3) { border-top-color: var(--walter); }
+  .card:last-child { border-right: none; }
+  .card-index {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: 64px;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--rust);
+    display: block;
+    margin-bottom: 6px;
+  }
+  .card:nth-child(2) .card-index { color: var(--sage); }
+  .card:nth-child(3) .card-index { color: var(--walter); }
+  .card-eyebrow {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 9.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .card-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+    margin: 6px 0 10px;
+    line-height: 1.1;
+  }
+  .card-section {
+    margin-top: 6px;
+  }
+  .card-section h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 8.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin: 0 0 3px;
+  }
+  .card-section p {
+    font-size: 10.5px;
+    line-height: 1.45;
+    color: var(--text-mid);
+    margin: 0;
+    font-weight: 300;
+  }
+  .card-section ul {
+    list-style: none;
+    padding: 0; margin: 0;
+    font-size: 10.5px;
+    line-height: 1.45;
+    color: var(--text-mid);
+  }
+  .card-section ul li {
+    padding: 2px 0 2px 14px;
+    position: relative;
+  }
+  .card-section ul li::before {
+    content: '›';
+    position: absolute;
+    left: 0; top: 3px;
+    color: var(--rust);
+    font-family: var(--font-display);
+    font-weight: 500;
+  }
+  .card-tags {
+    margin-top: auto;
+    padding-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tag {
+    border: 1px solid var(--border-strong);
+    border-radius: 100px;
+    padding: 3px 10px;
+    font-family: var(--font-display);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    white-space: nowrap;
+  }
+  .tag.rust { border-color: var(--rust); color: var(--rust); }
+  .tag.sage { border-color: var(--sage); color: var(--sage); }
+  .tag.walter { border-color: var(--walter); color: var(--walter); }
+
+  /* Pipeline strip (page 1 footer) */
+  .pipeline-strip.security {
+    background: var(--rust-dim2);
+    border-top: 2px solid var(--rust);
+  }
+  .pipeline-strip.security .ps-label {
+    background: var(--rust);
+    color: #fff;
+    border-right: none;
+    padding: 5px 24px;
+  }
+  .pipeline-strip.security .ps-label .title {
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .pipeline-strip.security .ps-label .sub {
+    color: rgba(255,255,255,0.75);
+  }
+  .lock-ico svg { width: 14px; height: 14px; display: block; }
+  .security-points {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 5px 20px;
+    gap: 4px 18px;
+    align-items: center;
+  }
+  .sec-item {
+    font-family: var(--font-body);
+    font-size: 9.5px;
+    color: var(--text);
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+  .sec-item b {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--text);
+  }
+  .sec-dot {
+    width: 5px; height: 5px;
+    background: var(--rust);
+    border-radius: 100px;
+    flex-shrink: 0;
+    transform: translateY(-1px);
+  }
+  .pipeline-strip {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .pipeline-strip .ps-label {
+    padding: 8px 24px;
+    border-right: 1px solid var(--border);
+    background: var(--surface-2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .pipeline-strip .ps-label .title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: -0.01em;
+  }
+  .pipeline-strip .ps-label .sub {
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+  .pipeline-stages {
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    gap: 4px;
+    font-family: var(--font-display);
+  }
+  .stage {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text);
+    padding: 6px 4px;
+  }
+  .stage .dot {
+    width: 6px; height: 6px; border-radius: 100px;
+    background: var(--rust);
+  }
+  .stage .dot.d2 { background: var(--rust); opacity: 0.75; }
+  .stage .dot.d3 { background: var(--rust); opacity: 0.55; }
+  .stage .dot.d4 { background: var(--rust); opacity: 0.35; }
+  .stage .dot.d5 { background: var(--rust); opacity: 0.2; }
+  .stage-arrow {
+    color: var(--text-dim);
+    font-size: 12px;
+    margin: 0 6px;
+    opacity: 0.6;
+  }
+  .footer {
+    padding: 5px 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    font-family: var(--font-display);
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+  .footer .url { color: var(--rust); }
+
+  /* ============ PAGE 2 ============ */
+  .p2-hero {
+    padding: 14px 36px 14px;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 48px;
+    align-items: end;
+    border-bottom: 1px solid var(--border);
+  }
+  .p2-hero .hero-title { font-size: 38px; margin: 6px 0 4px; line-height: 1; }
+
+  .p2-grid {
+    display: grid;
+    grid-template-columns: 300px 1fr 340px;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  /* Sources column */
+  .sources {
+    border-right: 1px solid var(--border);
+    padding: 12px 20px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow: hidden;
+    background: var(--surface-2);
+  }
+  .sources-title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--text);
+    margin: 0 0 10px;
+  }
+  .access-tag {
+    display: inline-block;
+    margin-left: 5px;
+    font-family: var(--font-mono);
+    font-size: 7px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    padding: 1px 5px;
+    border-radius: 3px;
+    vertical-align: 1px;
+  }
+  .access-tag.cli { background: var(--surface-3); color: var(--text-mid); }
+  .access-tag.mcp { background: var(--rust-dim); color: var(--rust); }
+  .access-tag.api { background: rgba(94,138,86,0.14); color: var(--sage); }
+  .access-tag.web { background: rgba(160,120,80,0.14); color: var(--walter); }
+  .sources-group h5 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin: 0 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sources-group h5 .line {
+    flex: 1; height: 1px; background: var(--rust); opacity: 0.35;
+  }
+  .source-row {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 10px;
+    padding: 4px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+  }
+  .source-row:last-child { border-bottom: none; }
+  .src-code {
+    font-family: var(--font-mono);
+    font-size: 8.5px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--rust);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 0;
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    text-transform: uppercase;
+  }
+  .src-code svg { width: 14px; height: 14px; display: block; }
+  .source-row .name {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 10.5px;
+    letter-spacing: -0.005em;
+    color: var(--text);
+    line-height: 1.2;
+  }
+  .source-row .detail {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 9px;
+    color: var(--text-dim);
+    margin-top: 1px;
+    line-height: 1.3;
+  }
+
+  /* Loop column */
+  .loop {
+    padding: 10px 22px 10px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .loop-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 8px;
+  }
+  .loop-head h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: -0.02em;
+    margin: 3px 0 3px;
+  }
+  .loop-head p {
+    font-size: 10px;
+    color: var(--text-dim);
+    margin: 0;
+    line-height: 1.45;
+    max-width: 380px;
+  }
+  .josh-badge {
+    width: 44px; height: 44px;
+    background: var(--rust);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .josh-badge::after {
+    content: 'JOSH';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 6px;
+    font-size: 8px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: var(--rust);
+  }
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .step {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 10px;
+    padding: 4px 0;
+    border-top: 1px solid var(--border);
+    align-items: start;
+  }
+  .step:last-child { border-bottom: 1px solid var(--border); }
+  .step .n {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: -0.02em;
+    color: var(--rust);
+    line-height: 1;
+    padding-top: 2px;
+  }
+  .step-kind {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-display);
+    font-size: 7px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 1.5px 6px;
+    border-radius: 100px;
+    border: 1px solid currentColor;
+    line-height: 1;
+    margin-left: 6px;
+    white-space: nowrap;
+  }
+  .step-kind.trigger { color: var(--text-dim); }
+  .step-kind.agentic { color: var(--rust); background: var(--rust-dim2); }
+  .step-kind .d {
+    width: 4px; height: 4px; border-radius: 100px;
+    background: currentColor;
+  }
+  .step .body h4 {
+    display: flex;
+    align-items: center;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: -0.01em;
+    margin: 0 0 2px;
+    color: var(--text);
+  }
+  .step .body p {
+    font-size: 9.2px;
+    line-height: 1.4;
+    color: var(--text-mid);
+    margin: 0;
+  }
+  .model-routing {
+    margin-top: 6px;
+    padding: 6px 12px;
+    background: var(--rust-dim2);
+    border: 1px solid var(--rust-dim);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+    align-items: center;
+  }
+  .model-routing .rt-label {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rust);
+    white-space: nowrap;
+    border-right: 1px solid var(--rust-dim);
+    padding-right: 12px;
+  }
+  .model-routing .rt-body {
+    font-family: var(--font-body);
+    font-size: 9.5px;
+    color: var(--text-mid);
+    line-height: 1.4;
+  }
+  .model-routing b { color: var(--text); font-weight: 500; }
+
+  /* Briefing column */
+  .briefing {
+    padding: 12px 20px 12px;
+    background: var(--surface);
+    display: flex;
+    flex-direction: column;
+  }
+  .briefing-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+  }
+  .briefing-head h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .briefing-head .tag-time {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--rust);
+  }
+  .briefing-sub {
+    font-size: 9.5px;
+    color: var(--text-dim);
+    margin: 0 0 4px;
+    line-height: 1.4;
+  }
+  .b-section {
+    display: grid;
+    grid-template-columns: 18px 1fr;
+    gap: 8px;
+    padding: 5px 0;
+    border-top: 1px solid var(--border);
+    align-items: start;
+  }
+  .b-section:last-child { border-bottom: 1px solid var(--border); }
+  .b-section .num {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1.1;
+    padding-top: 1px;
+  }
+  .b-section .body h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: -0.005em;
+    margin: 0 0 1px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .b-section .body p {
+    font-size: 9.5px;
+    line-height: 1.4;
+    color: var(--text-mid);
+    margin: 0;
+  }
+  .new-badge {
+    display: inline-flex;
+    align-items: center;
+    background: var(--rust);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    padding: 2px 6px 2px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  /* Page 2 bottom stats */
+  .p2-stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .p2-stat {
+    padding: 10px 20px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .p2-stat:last-child { border-right: none; }
+  .p2-stat .v {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--rust);
+  }
+  .p2-stat .k {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 8.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 5px;
+  }
+
+  /* Card 3 — agent chips */
+  .agent-row {
+    display: grid;
+    grid-template-columns: 12px 1fr;
+    gap: 8px;
+    padding: 1.5px 0;
+    font-size: 10px;
+    line-height: 1.3;
+    color: var(--text-mid);
+  }
+  .agent-row .dot {
+    width: 7px; height: 7px; border-radius: 100px;
+    margin-top: 4px;
+  }
+  .agent-row b {
+    color: var(--text);
+    font-weight: 500;
+    font-family: var(--font-display);
+    margin-right: 2px;
+  }
+  @media print {
+    html, body { background: #fff; }
+    body { padding: 0; }
+    .page { margin: 0; box-shadow: none; border: none; page-break-after: always; break-after: page; }
+    .page:last-child { page-break-after: auto; break-after: auto; }
+    @page { size: 1200px 849px; margin: 0; }
+  }
+</style>
+<style>
+  :root { --rust: #1E3A8A; --rust-deep: #152A66;
+           --rust-dim: #1E3A8A1f; --rust-dim2: #1E3A8A0d; }
+
+  .josh-badge::after { content: none; }
+  .josh-badge .badge-name {
+    position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+    margin-top: 6px; font-size: 8px; font-weight: 500; letter-spacing: 0.2em;
+    color: var(--rust); font-family: var(--font-display);
+  }
+
+  .p3-grid { display: grid; grid-template-columns: 1fr 1fr; flex: 1; min-height: 0; overflow: hidden; }
+  .p3-col { padding: 12px 24px 10px; display: flex; flex-direction: column; gap: 10px; overflow: hidden; }
+  .p3-col + .p3-col { border-left: 1px solid var(--border); background: var(--surface-2); }
+  .p3-block h3 {
+    font-family: var(--font-display); font-weight: 600; font-size: 13px;
+    letter-spacing: -0.01em; margin: 0 0 2px;
+  }
+  .p3-block .lead { font-size: 9.5px; color: var(--text-dim); margin: 0 0 7px; line-height: 1.4; }
+  .dim-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 14px; }
+  .dim {
+    display: grid; grid-template-columns: 16px 1fr; gap: 7px;
+    padding: 3.5px 0; border-bottom: 1px solid var(--border); align-items: baseline;
+  }
+  .dim .i {
+    font-family: var(--font-mono); font-size: 8px; color: var(--rust); font-weight: 500;
+  }
+  .dim .l { font-family: var(--font-display); font-weight: 500; font-size: 9.5px; color: var(--text); line-height: 1.25; }
+  .dim .q { font-size: 8.5px; color: var(--text-dim); line-height: 1.3; display: block; font-weight: 300; }
+  .dim.off .l, .dim.off .i { opacity: 0.55; }
+  .matrix { width: 100%; border-collapse: collapse; font-size: 8.8px; }
+  .matrix th, .matrix td { border: 1px solid var(--border); padding: 4px 7px; text-align: left; vertical-align: top; line-height: 1.3; }
+  .matrix th {
+    font-family: var(--font-display); font-weight: 500; font-size: 8px;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim);
+    background: var(--bg);
+  }
+  .matrix td.stage {
+    font-family: var(--font-display); font-weight: 600; font-size: 9px; color: var(--text);
+    background: var(--bg); white-space: nowrap;
+  }
+  .matrix td b { font-family: var(--font-display); font-weight: 600; color: var(--rust); }
+  .conv { display: grid; grid-template-columns: 1fr auto; gap: 6px 10px; padding: 3.5px 0; border-bottom: 1px solid var(--border); align-items: baseline; }
+  .conv .r { font-size: 9px; color: var(--text-mid); line-height: 1.35; }
+  .conv .r b { font-family: var(--font-display); font-weight: 600; color: var(--text); font-size: 9.5px; }
+  .conv .t {
+    font-family: var(--font-display); font-size: 7.5px; font-weight: 600; letter-spacing: 0.1em;
+    padding: 1.5px 6px; border-radius: 100px; border: 1px solid currentColor; white-space: nowrap;
+  }
+  .t.hi { color: var(--rust); } .t.me { color: var(--walter); } .t.lo { color: var(--text-dim); }
+  .ratchet { display: flex; flex-direction: column; gap: 0; }
+  .rstep { display: grid; grid-template-columns: 18px 1fr; gap: 8px; padding: 4px 0; border-top: 1px solid var(--border); align-items: start; }
+  .rstep:last-child { border-bottom: 1px solid var(--border); }
+  .rstep .n { font-family: var(--font-display); font-weight: 600; font-size: 10px; color: var(--rust); line-height: 1.3; }
+  .rstep .b { font-size: 9px; line-height: 1.4; color: var(--text-mid); }
+  .rstep .b b { font-family: var(--font-display); font-weight: 600; color: var(--text); }
+  .note {
+    margin-top: auto; padding: 7px 11px; background: var(--rust-dim2);
+    border: 1px solid var(--rust-dim); font-size: 9px; line-height: 1.45; color: var(--text-mid);
+  }
+  .note b { font-family: var(--font-display); font-weight: 600; color: var(--text); }
+
+  .pf-grid { display: grid; grid-template-columns: 1.15fr 1fr; flex: 1; min-height: 0; overflow: hidden; }
+  .pf-col { padding: 12px 24px 10px; display: flex; flex-direction: column; gap: 9px; overflow: hidden; }
+  .pf-col + .pf-col { border-left: 1px solid var(--border); background: var(--surface-2); }
+  .pf-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+             padding-bottom: 7px; border-bottom: 1px solid var(--border-strong); }
+  .pf-name { font-family: var(--font-display); font-weight: 600; font-size: 17px; letter-spacing: -0.02em; }
+  .pf-name .tick { font-size: 10px; color: var(--text-dim); font-weight: 500; margin-left: 6px; }
+  .pf-quad {
+    font-family: var(--font-display); font-size: 9px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: #fff; background: var(--rust); padding: 3px 9px; border-radius: 100px;
+  }
+  .pf-block h4 {
+    font-family: var(--font-display); font-weight: 500; font-size: 8.5px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--rust); margin: 0 0 4px;
+  }
+  .axes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .axis { border: 1px solid var(--border); padding: 7px 10px; background: var(--bg); }
+  .axis .k { font-family: var(--font-display); font-size: 8px; letter-spacing: 0.16em;
+             text-transform: uppercase; color: var(--text-dim); }
+  .axis .v { font-family: var(--font-display); font-weight: 600; font-size: 22px;
+             letter-spacing: -0.02em; color: var(--rust); line-height: 1.1; }
+  .axis .v small { font-size: 11px; color: var(--text-dim); font-weight: 500; }
+  .axis .d { font-size: 8.5px; color: var(--text-mid); line-height: 1.35; margin-top: 3px; }
+  .fld { display: grid; grid-template-columns: 1fr auto; gap: 5px 10px; padding: 3px 0;
+         border-bottom: 1px solid var(--border); align-items: baseline; }
+  .fld .n { font-size: 9.3px; color: var(--text-mid); line-height: 1.35; }
+  .fld .n b { font-family: var(--font-display); font-weight: 600; color: var(--text); }
+  .ev { font-family: var(--font-display); font-size: 7px; font-weight: 600; letter-spacing: 0.1em;
+        text-transform: uppercase; padding: 1.5px 5px; border-radius: 100px;
+        border: 1px solid currentColor; white-space: nowrap; }
+  .ev.c { color: var(--sage); } .ev.e { color: var(--walter); } .ev.a { color: var(--text-dim); }
+  .quote { background: var(--rust-dim2); border-left: 2px solid var(--rust); padding: 7px 11px;
+           font-size: 9.5px; line-height: 1.45; color: var(--text-mid); font-style: italic; }
+  .quote b { font-style: normal; font-family: var(--font-display); font-weight: 600; color: var(--text); }
+  .srcline { font-size: 8.2px; color: var(--text-dim); margin-top: 4px; font-style: normal; }
+  .fict { margin-top: auto; padding: 7px 11px; background: var(--surface-3);
+          border: 1px dashed var(--border-strong); font-size: 8.8px; line-height: 1.45; color: var(--text-mid); }
+  .fict b { font-family: var(--font-display); font-weight: 600; color: var(--text); }
+
+  /* Print: one sheet per .page, exact size, no chrome */
+  @page { size: 1200px 849px; margin: 0; }
+  @media print {
+    html, body { background: var(--bg) !important; padding: 0 !important; margin: 0 !important; }
+    .page { margin: 0 !important; border: none !important; page-break-after: always; }
+    .page:last-child { page-break-after: auto; }
+  }
+  /* keep content off the bottom edge (same override the Josh file ships) */
+  .page { padding-bottom: 18px !important; }
+  .pipeline-strip.security { margin: 0 18px 0 !important; }
+  .cards { padding-bottom: 12px !important; }
+  .p2-grid { padding-bottom: 12px !important; }
+  .card { padding-bottom: 10px !important; padding-top: 12px !important; }
+  .loop, .briefing, .sources { padding-top: 10px !important; padding-bottom: 10px !important; }
+</style>
+</head>
+<body>
+
+<section class="page" data-screen-label="Page 1">
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">H</div>
+    <div class="brand-title"><span class="agent">Holy</span> · AI Holistic Health & Longevity Coach</div>
+  </div>
+  <div class="topbar-right">
+    <span>Claude AI Project</span><span class="sep">/</span>
+    <span>One-Pager</span><span class="sep">/</span>
+    <span class="page-num"><b>01</b> &nbsp;of 02</span>
+  </div>
+</header>
+
+<div class="p1-hero">
+  <div>
+    <span class="label rust">The Agent</span>
+    <h1 class="hero-title" style="font-size:42px">A four-agent swarm to be the best version of&nbsp;<span class="amp">yourself</span>.</h1>
+    <p class="hero-sub"><b>Body, mind, nutrition, sports.</b> Holy is your holistic health &amp; longevity coaching squad: four Claude-powered coaches, each trained on its own discipline and on your own data. A normal coach hands you a plan once — <b>Holy recalculates yours continuously</b>, reviewing the estimated plan against actuals and your health KPIs, and adapting it overnight.</p>
+  </div>
+  <div class="hero-meta"></div>
+</div>
+<div class="cards">
+
+<article class="card">
+  <span class="card-index">1</span>
+  <span class="card-eyebrow">The Coaching Squad</span>
+  <h2 class="card-title">Four coaches, each trained on their craft</h2>
+  <div class="card-section"><h4>What</h4><p>A lead <b>Coach</b> for training &amp; load, <b>Nutri</b> for fuelling, <b>Doc</b> for sports medicine, <b>Mind</b> for sports psychology. Each persona is trained on its own specialist playbook — and coaches from <b>your data</b>, not generic advice.</p></div><div class="card-section"><h4>Impact</h4><p>Four experts almost nobody has, without four experts' noise. A dropped HRV becomes a decision, not a 11pm search.</p></div><div class="card-section"><h4>Context</h4><ul><li>coach.md · nutri.md · doc.md · mind.md</li>
+<li>Trigger tables · who fires, and when</li>
+<li>Hub-and-spoke · specialists never talk directly</li></ul></div>
+  <div class="card-tags"><span class="tag rust">4 coaches · 1 voice</span>
+<span class="tag ">Trained on your data</span></div>
+</article>
+
+<article class="card">
+  <span class="card-index">2</span>
+  <span class="card-eyebrow">The Daily Brief</span>
+  <h2 class="card-title">Adapts overnight to your own data</h2>
+  <div class="card-section"><h4>What</h4><p>Every morning, one brief: a read, three micro-actions, one closing line — under 700 characters. Rebuilt each night from the overnight sync, plan-versus-actual training and your health KPIs.</p></div><div class="card-section"><h4>Impact</h4><p><b>This is the gold.</b> A normal coach writes the plan once; Holy reviews estimated plan against actuals and recalibrates, so the plan bends to reality instead of scoring you against it.</p></div><div class="card-section"><h4>Context</h4><ul><li>Nutri daily · Doc &amp; Mind on triggers</li>
+<li>Parallel fan-out when triggers stack</li>
+<li>Dashboard · vitals, plan-vs-actual, countdown</li></ul></div>
+  <div class="card-tags"><span class="tag sage">Haiku → Sonnet</span>
+<span class="tag ">Trigger-based routing</span></div>
+</article>
+
+<article class="card">
+  <span class="card-index">3</span>
+  <span class="card-eyebrow">The A-Team</span>
+  <h2 class="card-title">Part of a larger Agent A-team</h2>
+  <div class="card-section"><h4>What</h4><p>Holy reads shared memory from the sibling agents each morning before composing the brief. Signals compound across the team: a heavy work week changes how a training week gets paced.</p></div><div class="card-section"><h4>The Team</h4><div class="agent-row"><span class="dot" style="background:#B34E2A"></span><span><b>Josh</b> · career &amp; pipeline</span></div><div class="agent-row"><span class="dot" style="background:#5E8A56"></span><span><b>Rachel</b> · market &amp; company intel</span></div><div class="agent-row"><span class="dot" style="background:#1E3A8A"></span><span><b>Holy</b> · holistic health &amp; longevity</span></div><div class="agent-row"><span class="dot" style="background:#5C6B7A"></span><span><b>Cody</b> · verification &amp; connections</span></div><div class="agent-row"><span class="dot" style="background:#A07850"></span><span><b>Warren</b> · financial investment analysis</span></div><div class="agent-row"><span class="dot" style="background:#8A8278"></span><span><b>Story coach</b> · narrative &amp; positioning</span></div><div class="agent-row"><span class="dot" style="background:#42505E"></span><span><b>CoWork</b> · sprint orchestration</span></div></div>
+  <div class="card-tags"><span class="tag walter">Shared vault</span>
+<span class="tag walter">Agent memory</span>
+<span class="tag ">Claude Code subagents</span></div>
+</article>
+</div>
+<div class="pipeline-strip security">
+  <div class="ps-label">
+    <div class="title"><span class="lock-ico" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="1"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
+    </span>Guardrails, structural</div>
+    <div class="sub">Not a medical device</div>
+  </div>
+  <div class="security-points"><div class="sec-item"><span class="sec-dot"></span>Doc <b>never diagnoses</b> · escalates instead</div><div class="sec-item"><span class="sec-dot"></span><b>Nothing sends</b> without you</div><div class="sec-item"><span class="sec-dot"></span>Plan changes are <b>proposals</b></div><div class="sec-item"><span class="sec-dot"></span><b>No personal data</b> in the repo</div></div>
+</div>
+</section>
+
+<section class="page" data-screen-label="Page 2">
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">H</div>
+    <div class="brand-title"><span class="agent">Holy</span> · Morning Coaching Loop</div>
+  </div>
+  <div class="topbar-right">
+    <span>Claude AI Project</span><span class="sep">/</span>
+    <span>One-Pager</span><span class="sep">/</span>
+    <span class="page-num"><b>02</b> &nbsp;of 02</span>
+  </div>
+</header>
+
+<div class="p2-hero">
+  <div>
+    <span class="label rust">The Loop</span>
+    <h1 class="hero-title">How Holy runs a morning.</h1>
+  </div>
+  <p class="hero-sub" style="padding-bottom:6px">Before you are out of bed, the swarm has synced your overnight data, reviewed the plan against your actuals and health KPIs, decided which specialists the day actually needs, fanned them out in parallel, and compressed everything into one brief you read once.</p>
+</div>
+<div class="p2-grid">
+  <div class="sources"><div class="sources-title">What Holy reads</div><div class="sources-group"><h5>External<span class="line"></span></h5>
+<div class="source-row">
+  <span class="src-code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="6"/><path d="M12 9v3l2 1M8.5 5.5L9 2h6l.5 3.5M8.5 18.5L9 22h6l.5-3.5"/></svg></span>
+  <div><div class="name">Wearable sync<span class="access-tag api">API</span></div><div class="detail">Overnight HRV, resting HR, sleep, readiness</div></div>
+</div>
+<div class="source-row">
+  <span class="src-code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
+  <div><div class="name">Activity feed<span class="access-tag api">API</span></div><div class="detail">Runs &amp; sessions · plan versus actual</div></div>
+</div>
+<div class="source-row">
+  <span class="src-code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3s6 7 6 11a6 6 0 01-12 0c0-4 6-11 6-11z"/></svg></span>
+  <div><div class="name">Blood test output<span class="access-tag cli">CLI</span></div><div class="detail">Lab panels · biomarkers tracked over time</div></div>
+</div>
+<div class="source-row">
+  <span class="src-code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8.5 8.5a5 5 0 017 0M12 8.5V11"/></svg></span>
+  <div><div class="name">Digital scale<span class="access-tag api">API</span></div><div class="detail">Weight &amp; body-composition trend</div></div>
+</div>
+<div class="source-row">
+  <span class="src-code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h14v16l-4-3-3 3-3-3-4 3z"/><path d="M9 9h6M9 13h4"/></svg></span>
+  <div><div class="name">Manual quick-log<span class="access-tag cli">CLI</span></div><div class="detail">Grip strength, mood, meals, how it actually felt</div></div>
+</div>
+<div class="source-row">
+  <span class="src-code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7l2-3h4l2 3"/><circle cx="12" cy="13.5" r="3.5"/></svg></span>
+  <div><div class="name">Pictures<span class="access-tag cli">CLI</span></div><div class="detail">Photos of food, weight &amp; body composition</div></div>
+</div>
+<div class="source-row">
+  <span class="src-code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="1"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
+  <div><div class="name">Gmail &amp; Calendar<span class="access-tag mcp">MCP</span></div><div class="detail">Jetlag &amp; timezones · agenda load · competition dates</div></div>
+</div></div><div class="sources-group"><h5>Internal<span class="line"></span></h5>
+<div class="source-row">
+  <span class="src-code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg></span>
+  <div><div class="name">config/<span class="access-tag cli">CLI</span></div><div class="detail">Athlete, race, goal tiers, thresholds</div></div>
+</div>
+<div class="source-row">
+  <span class="src-code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5a2 2 0 012-2h13v18H6a2 2 0 01-2-2z"/><path d="M8 7h7M8 11h7"/></svg></span>
+  <div><div class="name">Coach plan<span class="access-tag cli">CLI</span></div><div class="detail">20-week build · sessions &amp; overrides</div></div>
+</div>
+<div class="source-row">
+  <span class="src-code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a1 1 0 00-1 1v16a1 1 0 001 1h10a1 1 0 001-1V7z"/><path d="M14 3v4h4"/></svg></span>
+  <div><div class="name">Shared vault<span class="access-tag cli">CLI</span></div><div class="detail">Sibling-agent notes · discovered, not hardcoded</div></div>
+</div>
+<div class="source-row">
+  <span class="src-code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0114 0"/></svg></span>
+  <div><div class="name">Persona files<span class="access-tag cli">CLI</span></div><div class="detail">coach · nutri · doc · mind trigger tables</div></div>
+</div></div></div>
+  <div class="loop">
+    <div class="loop-head">
+      <div>
+        <span class="label rust no-rule">Daily pipeline</span>
+        <h3>Sync → route → fan out → one brief</h3>
+        <p>The trigger tables are the product: a specialist that fires every day is expensive wallpaper, and one that never fires is a broken tripwire.</p>
+      </div>
+      <div class="josh-badge" style="--badge-name:'HOLY'">H<span class="badge-name">HOLY</span></div>
+    </div>
+    <div class="steps">
+<div class="step">
+  <span class="n">01</span>
+  <div class="body">
+    <h4>Sync<span class="step-kind trigger"><span class="d"></span>Trigger</span></h4>
+    <p>Wearable and manual quick-log data pulled into one store. Local files authoritative; dashboard downstream.</p>
+  </div>
+</div>
+<div class="step">
+  <span class="n">02</span>
+  <div class="body">
+    <h4>Read the team<span class="step-kind agentic"><span class="d"></span>Agentic</span></h4>
+    <p>Vault notes from sibling agents, discovered by listing the directory. A heavy work week changes how this week gets paced.</p>
+  </div>
+</div>
+<div class="step">
+  <span class="n">03</span>
+  <div class="body">
+    <h4>Route<span class="step-kind trigger"><span class="d"></span>Trigger</span></h4>
+    <p>Trigger tables decide who fires. Nutri always. Doc on N-day threshold breaches or symptoms. Mind on phase, failures, flat language.</p>
+  </div>
+</div>
+<div class="step">
+  <span class="n">04</span>
+  <div class="body">
+    <h4>Fan out<span class="step-kind agentic"><span class="d"></span>Agentic</span></h4>
+    <p>Fired specialists run in parallel, never serially. Each returns a short, attributable read in its own voice.</p>
+  </div>
+</div>
+<div class="step">
+  <span class="n">05</span>
+  <div class="body">
+    <h4>Synthesise<span class="step-kind agentic"><span class="d"></span>Agentic</span></h4>
+    <p>Coach recalibrates the plan against your actuals, then ships one brief: the read, every specialist quoted, three micro-actions, one closer. ≤700 characters.</p>
+  </div>
+</div></div>
+    <div class="model-routing">
+      <span class="rt-label">Model routing</span>
+      <span class="rt-body">Sync, parsing &amp; threshold checks → <b>Haiku</b>. Specialist reasoning &amp; the brief → <b>Sonnet</b>. The conditional triggers do the cost control: specialists run only when their tables fire.</span>
+    </div>
+  </div>
+  <div class="briefing">
+    <div class="briefing-head"><h3>Your morning brief</h3><span class="tag-time">&lt; 2 min read</span></div>
+    <p class="briefing-sub">One message. Specialists appear only when they were called.</p>
+    
+<div class="b-section">
+  <span class="num">1</span>
+  <div class="body"><h4>Countdown header</h4><p>Days to race, phase, build week, sessions banked toward the goal.</p></div>
+</div>
+<div class="b-section">
+  <span class="num">2</span>
+  <div class="body"><h4>Coach's read</h4><p>One sentence tying a KPI to today's constraint. Numbers and feel, in that order.</p></div>
+</div>
+<div class="b-section">
+  <span class="num">3</span>
+  <div class="body"><h4>Nutri</h4><p>The daily fuelling micro-action, plus vitamins &amp; prebiotics. Specific foods, never food groups.</p></div>
+</div>
+<div class="b-section">
+  <span class="num">4</span>
+  <div class="body"><h4>Doc</h4><p>Only if a trigger fired: a flag level and what to actually do about it.</p></div>
+</div>
+<div class="b-section">
+  <span class="num">5</span>
+  <div class="body"><h4>Mind</h4><p>Only when it matters: taper, race week, a bad session, a flat week.</p></div>
+</div>
+<div class="b-section">
+  <span class="num">6</span>
+  <div class="body"><h4>Three micro-actions</h4><p>Concrete, sequenced, done by lunch. The most important section.</p></div>
+</div>
+<div class="b-section">
+  <span class="num">7</span>
+  <div class="body"><h4>Travel mode <span class="new-badge">New</span></h4><p>Adapts to your timezone: on a work trip the plan shifts to beat jetlag, a packed agenda and competition dates.</p></div>
+</div>
+  </div>
+</div>
+<div class="p2-stats" style="grid-template-columns:repeat(5,1fr)"><div class="p2-stat"><span class="v">4</span><span class="k">Coaches · 1 voice</span></div><div class="p2-stat"><span class="v">≤700</span><span class="k">Chars per brief</span></div><div class="p2-stat"><span class="v">20</span><span class="k">Week build plan</span></div><div class="p2-stat"><span class="v">2 min</span><span class="k">To read, once</span></div><div class="p2-stat"><span class="v">Nightly</span><span class="k">Plan recalibrated</span></div></div>
+</section>
+
+</body></html>

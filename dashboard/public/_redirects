@@ -1,0 +1,5 @@
+# Root → public stats page (link in bio landing)
+/    /public    302
+
+# Cloudflare Pages SPA fallback — every other path served by index.html
+/*    /index.html   200

@@ -1,0 +1,45 @@
+name: Deploy dashboard → Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "dashboard/**"
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: "dashboard/package-lock.json"
+
+      - name: Install dependencies
+        working-directory: "dashboard"
+        run: npm ci
+
+      - name: Build
+        working-directory: "dashboard"
+        run: npm run build
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          # Personal values stay in repo secrets, never in this file.
+          VITE_RACE_DATE: ${{ secrets.VITE_RACE_DATE }}
+          VITE_BIRTHDATE: ${{ secrets.VITE_BIRTHDATE }}
+          VITE_HEIGHT_CM: ${{ secrets.VITE_HEIGHT_CM }}
+          VITE_SEX: ${{ secrets.VITE_SEX }}
+
+      - name: Deploy to Cloudflare Pages
+        run: npx wrangler@3 pages deploy "dashboard/dist" --project-name holy-dashboard --branch main --commit-dirty=true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

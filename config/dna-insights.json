@@ -1,0 +1,13 @@
+{
+  "_comment": "Optional. If you have had a consumer genomics report and want its actionable takeaways surfaced next to your training data, transcribe them here yourself. This ships EMPTY on purpose: genetic results are the most identifying health data there is, and no example set belongs in a public repository. With an empty list the dashboard renders an empty state and nothing else changes.",
+
+  "_shape": {
+    "level": "green | amber | red",
+    "title": "Short label for the finding",
+    "action": "What you actually do differently because of it"
+  },
+
+  "_caution": "Consumer genomics reports are probabilistic and often overstated. Treat anything here as a prompt to ask a clinician a better question, never as a diagnosis or a reason to change medication.",
+
+  "insights": []
+}

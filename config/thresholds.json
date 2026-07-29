@@ -1,0 +1,39 @@
+{
+  "_comment": "The colour cuts the dashboard uses to decide whether a metric reads good, watch, or bad. Every number below is a placeholder chosen from published population reference ranges. None of them describes a real person, and none of them is medical advice. Your own baselines will differ, sometimes a lot: derive them from your own trailing data and adjust here, ideally with a clinician who has seen your actual numbers.",
+
+  "_disclaimer": "This dashboard is not a medical device. It renders your own data against thresholds you set. It does not diagnose anything and it is not a substitute for a clinician.",
+
+  "hrv": {
+    "_note": "Overnight HRV varies enormously between people and between devices. Set the band from your own trailing 60-day distribution, not from anyone else's numbers.",
+    "baselineLow": 60,
+    "baselineHigh": 100
+  },
+
+  "restingHeartRate": {
+    "_note": "Preferred band for a trained endurance athlete. Wide normal range in the general population.",
+    "goodLow": 45,
+    "goodHigh": 60
+  },
+
+  "sleep": {
+    "_note": "Hours. Colour by device sleep score when one is available, and fall back to these.",
+    "goodHours": 7.5,
+    "amberHours": 6.5,
+    "hardTargetHours": 8
+  },
+
+  "bodyBattery": {
+    "_note": "Device-specific readiness score, 0 to 100. Green above the floor.",
+    "goodFloor": 70
+  },
+
+  "vo2max": {
+    "_note": "Estimated VO2max floor above which the tile reads green. Strongly age and sex dependent.",
+    "goodFloor": 45
+  },
+
+  "bodyComposition": {
+    "_note": "Body-fat percentage anchor for the 'vs build start' comparison. Set it to your own reading on day one of the block, or leave it null and the tile compares against the first logged value instead.",
+    "buildStartBodyFatPct": null
+  }
+}

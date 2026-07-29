@@ -1,0 +1,65 @@
+# =========================================================================
+# Holy — repo .gitignore
+#
+# This repo holds code, config templates, and agent persona files. It must
+# never hold health data. The rules below deny whole categories rather than
+# named files, because the failure mode is committing something you forgot
+# was sensitive.
+# =========================================================================
+
+# ----- health data: deny wholesale --------------------------------------
+# Medical documents, lab results, genomics reports, exports from a clinic.
+medical/
+health-data/
+exports/
+*.pdf
+# ...except the published one-pager, which is a deliberate deliverable.
+# Lower-case on purpose: the repo is cloned onto case-sensitive filesystems
+# where a mixed-case name and a lower-case link do not resolve to each other.
+!docs/holy-one-pager.pdf
+*.csv
+
+# Body and food photos, and anything else the agents were asked to read.
+photos/
+inbox/
+*.HEIC
+*.heic
+*.jpg
+*.jpeg
+*.png
+*.webp
+*.mp4
+*.mov
+
+# Personal knowledge vault, wherever it is mounted.
+vault/
+memory/
+
+# Filled-in personal config. These ship empty; keep them that way in git.
+config/dna-insights.local.json
+config/supplements.local.json
+
+# ----- secrets ----------------------------------------------------------
+.env
+.env.local
+.env.*.local
+*.pem
+
+# ----- build + tooling --------------------------------------------------
+node_modules/
+dist/
+.wrangler/
+.vercel/
+*.tsbuildinfo
+
+# ----- editor + OS noise ------------------------------------------------
+.DS_Store
+**/.DS_Store
+*.log
+.vscode/
+.idea/
+*.swp
+
+# ----- explicit allow-list for shipped assets ---------------------------
+!dashboard/public/*.svg
+!dashboard/public/**/*.svg

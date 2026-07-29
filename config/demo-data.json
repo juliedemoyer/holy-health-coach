@@ -1,0 +1,199 @@
+{
+  "_comment": "Demo data for ?demo=1. Every value below is INVENTED. It is not anyone's health data, it is not derived from anyone's health data, and it should not be read as a target, a benchmark, or a reference range. It exists so the dashboard has something to render without a backend. If you fork this, do not replace these with your own real numbers in a committed file.",
+  "athlete": {
+    "displayName": "Alex Rivera",
+    "note": "Fictional athlete. Fictional numbers."
+  },
+  "_vitalsComment": "Generated as a smooth synthetic series so the charts have shape. Deliberately unremarkable values well inside published population ranges.",
+  "vitals": {
+    "days": 42,
+    "hrv": {
+      "start": 74,
+      "end": 82,
+      "noise": 6
+    },
+    "restingHr": {
+      "start": 54,
+      "end": 51,
+      "noise": 2
+    },
+    "sleepHours": {
+      "start": 7.1,
+      "end": 7.6,
+      "noise": 0.7
+    },
+    "bodyBattery": {
+      "start": 68,
+      "end": 76,
+      "noise": 9
+    },
+    "vo2max": {
+      "start": 46,
+      "end": 48,
+      "noise": 0.4
+    },
+    "weightKg": {
+      "start": 68.0,
+      "end": 67.2,
+      "noise": 0.4
+    },
+    "bodyFatPct": {
+      "start": 24.0,
+      "end": 23.2,
+      "noise": 0.5
+    },
+    "mood": {
+      "start": 6,
+      "end": 7,
+      "noise": 2
+    }
+  },
+  "agentNotes": [
+    {
+      "agent_key": "coach",
+      "note": "Volume held this week and the base is doing its job. The quality block opens once we clear the next cutback."
+    },
+    {
+      "agent_key": "nutri",
+      "note": "Protein distribution is the thing to fix, not total intake. Move 20 g from dinner to breakfast."
+    },
+    {
+      "agent_key": "doc",
+      "note": "Nothing to flag in the trend this week. Next routine check-in is not due yet."
+    },
+    {
+      "agent_key": "mind",
+      "note": "Pre-session focus quality is up. The mental warm-up is becoming routine rather than an effort."
+    }
+  ],
+  "checkIns": [
+    {
+      "content_md": "Legs felt heavy for the first 3 km, then fine. Held the paces.",
+      "coach_read": "Good session inside a heavy week. Nothing to change.",
+      "closer": "Consistency is the whole trick."
+    },
+    {
+      "content_md": "Short night. Kept it easy on purpose.",
+      "coach_read": "Right call. Sleep is the lever this week.",
+      "closer": "Bank the easy days."
+    },
+    {
+      "content_md": "Best session of the block so far.",
+      "coach_read": "Threshold work is landing. Hold this shape.",
+      "closer": "Earn the next one."
+    }
+  ],
+  "activities": [
+    {
+      "name": "Easy 10 km Z2",
+      "type": "Run",
+      "distance_km": 10.0,
+      "duration_s": 3300,
+      "avg_hr": 138,
+      "feel": "good"
+    },
+    {
+      "name": "Tempo 3 x 8 min @ threshold",
+      "type": "Run",
+      "distance_km": 12.4,
+      "duration_s": 3720,
+      "avg_hr": 162,
+      "feel": "great"
+    },
+    {
+      "name": "Long run 24 km",
+      "type": "Run",
+      "distance_km": 24.0,
+      "duration_s": 8280,
+      "avg_hr": 145,
+      "feel": "ok"
+    },
+    {
+      "name": "Easy 8 km recovery",
+      "type": "Run",
+      "distance_km": 8.0,
+      "duration_s": 2760,
+      "avg_hr": 133,
+      "feel": "good"
+    },
+    {
+      "name": "Strides 6 x 100 m",
+      "type": "Run",
+      "distance_km": 6.5,
+      "duration_s": 2100,
+      "avg_hr": 140,
+      "feel": "great"
+    },
+    {
+      "name": "Strength session",
+      "type": "WeightTraining",
+      "distance_km": null,
+      "duration_s": 3600,
+      "avg_hr": 112,
+      "feel": "good"
+    }
+  ],
+  "marathons": [
+    {
+      "race_name": "Example Coastal Marathon",
+      "race_date": "2023-04-16",
+      "finish_time_s": 14100,
+      "wall_km": 34,
+      "weekly_volume_km": 48,
+      "longest_run_km": 30
+    },
+    {
+      "race_name": "Example Valley Marathon",
+      "race_date": "2024-10-20",
+      "finish_time_s": 13740,
+      "wall_km": null,
+      "weekly_volume_km": 54,
+      "longest_run_km": 32
+    },
+    {
+      "race_name": "Example Harbour Marathon",
+      "race_date": "2025-11-02",
+      "finish_time_s": 13500,
+      "wall_km": 38,
+      "weekly_volume_km": 58,
+      "longest_run_km": 32
+    }
+  ],
+  "tuneUpRaces": [
+    {
+      "label": "10 km time trial",
+      "distance_km": 10.0,
+      "status": "planned",
+      "weeks_before_race": 10
+    },
+    {
+      "label": "Half marathon",
+      "distance_km": 21.1,
+      "status": "planned",
+      "weeks_before_race": 6
+    }
+  ],
+  "actions": [
+    {
+      "proposed_by": "nutri",
+      "kind": "add_meal_reminder",
+      "title": "Move 20 g protein from dinner to breakfast",
+      "description": "Distribution matters more than the daily total.",
+      "status": "pending"
+    },
+    {
+      "proposed_by": "coach",
+      "kind": "block_training",
+      "title": "Add one VO2 session per week through Peak",
+      "description": "Yasso 800s on Mondays.",
+      "status": "confirmed"
+    },
+    {
+      "proposed_by": "mind",
+      "kind": "block_recovery",
+      "title": "Two minutes of race visualisation before every long run",
+      "description": "Rehearse the last 7 km, not the start.",
+      "status": "pending"
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+# Holy — Operational Procedures (example)
+
+Copy this to `CLAUDE.md` in the repo root and edit the bracketed parts.
+
+This file is how Claude Code drives the swarm. The four persona files in
+`.claude/agents/` define *who* each agent is; this file defines *what
+happens when*. The dashboard works without any of it, but the dashboard is
+only the read surface. The coaching is here.
+
+---
+
+## Config is the source of truth
+
+Read `config/athlete.json`, `config/race.json`, and `config/thresholds.json`
+at the start of every session. Never hardcode an athlete's details, a race
+date, or a threshold into this file, and never write a fact about the
+athlete back into any committed file. Edit the JSON instead.
+
+Real personal values (height, date of birth, sex) live in env vars, not in
+config. If you need one and it is not set, say so rather than guessing.
+
+## The daily pipeline
+
+Triggered at [07:00] by a scheduler, and conversationally by "morning".
+
+1. **Sync.** Pull whatever the device integrations give you, plus any manual
+   quick-log entries. Local files are authoritative; the dashboard mirror is
+   downstream and best-effort.
+2. **Read the team.** List the shared vault directory and read each agent's
+   `latest.md`. Do not hardcode a roster: agents join and leave.
+3. **Decide who to call.** Apply the trigger tables in `.claude/agents/*.md`.
+   Nutri always. Doc and Mind only on their conditions. Fan out in parallel
+   when more than one fires.
+4. **Synthesise.** One message. Every specialist quoted and attributed.
+   Coach's own read, then three micro-actions, then one closing line.
+5. **Ship.** [Your delivery channel]. Update the dashboard.
+
+Keep the brief under 700 characters. It is read on a phone, once, before
+anything else has happened that day.
+
+## What the agents may and may not do
+
+- **No write access to app code or schema.** That is for your own coding
+  sessions.
+- **No sending.** Nothing goes to another person without you doing it.
+- **Plan changes are proposals.** They land in the actions table with status
+  `pending` and wait for you.
+- **Doc never diagnoses.** Its outputs are a flag level and an escalation
+  path, and the escalation path is required. See `docs/SAFETY.md`.
+
+## End of day
+
+Write the vault note. It is what the sibling agents read tomorrow morning,
+so it is a contract, not a diary.
+
+```markdown
+---
+agent: coach
+date: YYYY-MM-DD
+---
+
+## Done today
+- [sessions completed, plan edits, what actually happened]
+
+## Open loops
+- [anything unresolved that carries forward]
+
+## Signal for other agents
+- [agent]: [what they should know, specifically]
+
+## Tomorrow's priority
+- [the one thing]
+```
+
+## Model routing
+
+| Task | Model |
+|---|---|
+| Data sync, parsing, threshold checks | Haiku |
+| Specialist reasoning, brief synthesis | Sonnet |
+
+Default to the cheaper model for anything rule-based. The judgment calls are
+what the larger model is for, and there are fewer of them than it feels like.
+
+## Cross-agent handoff (optional)
+
+If you run sibling agents and have a shared board, post a task tagged
+`collab:<agent>` when your work produces something they should act on. A
+heavy week flagged by another agent should change how you pace this one.
+Skip this section entirely if Holy runs alone.

@@ -1,0 +1,47 @@
+{
+  "_comment": "The goal race and the training block built around it. All values are examples. Override the date with VITE_RACE_DATE. The goal tiers below are illustrative round numbers, not anyone's real targets.",
+
+  "raceName": "Example City Marathon",
+  "raceShortName": "Example City",
+  "raceDate": "2027-09-26",
+  "raceDistanceKm": 42.195,
+  "raceEmoji": "🏁",
+
+  "buildStartDate": "2027-05-03",
+  "buildWeeks": 20,
+  "sessionsGoal": 100,
+
+  "_goalsComment": "Three tiers, because one target is either too soft to train against or too brittle to race against. Coach trains to the realistic tier; the A-goal is auditioned at tune-up races; the floor is what still counts as a good day.",
+  "goals": [
+    {
+      "tier": "A",
+      "label": "A-goal · stretch",
+      "timeLabel": "3:30",
+      "finishSeconds": 12600,
+      "note": "Audition it at the tune-up races. Earn it, do not assume it."
+    },
+    {
+      "tier": "Realistic",
+      "label": "Realistic · target",
+      "timeLabel": "3:40",
+      "finishSeconds": 13200,
+      "note": "What Coach trains toward. Every marathon-pace session anchors here."
+    },
+    {
+      "tier": "Floor",
+      "label": "Floor · safe result",
+      "timeLabel": "3:50",
+      "finishSeconds": 13800,
+      "note": "The safety net if race day goes sideways. Still a good day."
+    }
+  ],
+  "targetTier": "Realistic",
+
+  "phases": [
+    { "name": "Base",      "untilDaysToRace": 999 },
+    { "name": "Build",     "untilDaysToRace": 112 },
+    { "name": "Peak",      "untilDaysToRace": 56 },
+    { "name": "Taper",     "untilDaysToRace": 21 },
+    { "name": "Race week", "untilDaysToRace": 7 }
+  ]
+}

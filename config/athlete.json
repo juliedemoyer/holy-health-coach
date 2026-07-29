@@ -1,0 +1,33 @@
+{
+  "_comment": "Who the coach is coaching. Every value here is an example. Nothing in this file is real, and nothing about a real person belongs in a committed config file: height, date of birth and sex are read from env vars at runtime (VITE_HEIGHT_CM, VITE_BIRTHDATE, VITE_SEX) and the values below are only the fallbacks the demo uses.",
+  "athleteName": "Alex Rivera",
+  "coachName": "Holy",
+  "heightCm": 175,
+  "sex": "female",
+  "dietaryPattern": "pescatarian (fish and eggs and dairy, no meat)",
+  "_dietaryPatternComment": "Free text. Nutri reads it and names foods accordingly. The shipped recipes in knowledge/recipes are pescatarian; swap them if your pattern differs.",
+  "birthdate": "1990-01-01",
+  "specialists": [
+    {
+      "id": "coach",
+      "label": "Coach",
+      "domain": "training load, sessions, periodisation"
+    },
+    {
+      "id": "nutri",
+      "label": "Nutri",
+      "domain": "fuelling, recovery nutrition, body composition"
+    },
+    {
+      "id": "doc",
+      "label": "Doc",
+      "domain": "biometric interpretation, when to see a real clinician"
+    },
+    {
+      "id": "mind",
+      "label": "Mind",
+      "domain": "motivation, race-day psychology, consistency"
+    }
+  ],
+  "_specialistsComment": "The swarm. Coach is the leader and the only voice the athlete talks to directly. The other three are called conditionally, on the trigger tables in .claude/agents/*.md."
+}

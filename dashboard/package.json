@@ -1,0 +1,40 @@
+{
+  "name": "holy-dashboard",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Holy dashboard: the read surface for the coaching swarm. Vite + React + Supabase, deployable to Cloudflare Pages.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "lint": "tsc --noEmit",
+    "deploy": "npm run build && npx wrangler pages deploy dist --project-name=holy-dashboard",
+    "seed:marathons": "tsx supabase/seed-marathons.ts",
+    "seed:recipes": "tsx supabase/seed-recipes.ts",
+    "seed:tune-ups": "tsx supabase/seed-tune-ups.ts",
+    "seed:all": "npm run seed:marathons && npm run seed:recipes && npm run seed:tune-ups"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.4",
+    "date-fns": "^4.1.0",
+    "lucide-react": "^0.460.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.0.1",
+    "recharts": "^2.13.3",
+    "simple-statistics": "^7.8.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "@types/node": "^22.10.1",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tailwindcss": "^4.0.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.0",
+    "wrangler": "^3.95.0"
+  }
+}
