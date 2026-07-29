@@ -1,5 +1,10 @@
 # HOLY · Holistic Health & Longevity Coach
 
+[![CI](https://img.shields.io/github/actions/workflow/status/juliedemoyer/holy-health-coach/ci.yml?branch=main&style=flat-square&label=CI)](https://github.com/juliedemoyer/holy-health-coach/actions/workflows/ci.yml)
+[![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
+[![Built with Claude Code](https://img.shields.io/badge/built%20with-Claude%20Code-d97757?style=flat-square)](https://claude.com/claude-code)
+[![Last commit](https://img.shields.io/github/last-commit/juliedemoyer/holy-health-coach?style=flat-square&label=updated)](https://github.com/juliedemoyer/holy-health-coach/commits/main)
+
 An open-source, four-agent Claude swarm that coaches one athlete through a
 training block: it reads your wearable data every morning, decides which
 specialist actually needs to weigh in, and ships one short brief you read in
