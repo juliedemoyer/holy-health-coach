@@ -1,18 +1,71 @@
 /**
- * Athlete profile constants.
+ * Athlete profile constants — height, date of birth, sex.
  *
- * Height, date of birth and sex are genuinely personal, so they are read from
- * env vars at runtime and only fall back to the example values in
- * `config/athlete.json`. Set VITE_HEIGHT_CM, VITE_BIRTHDATE and VITE_SEX in
- * `.env.local` for dev and in your deploy target's env vars for production.
- * Nothing real about a real person ever needs to sit in committed source.
+ * Hydrated at runtime from the RLS-locked `config` row. Never compiled into
+ * the bundle.
  *
- * Single-athlete app by design. If you ever coach a second person, promote
- * these to a `profiles` row keyed on auth.uid().
+ * Why: height was a hardcoded literal and date of birth came from
+ * VITE_BIRTHDATE. Vite inlines every VITE_-prefixed variable into the client
+ * bundle at build time, so both sat as literal strings in a publicly
+ * downloadable .js asset. Reading them from Postgres behind
+ * `auth.uid() = user_id` means they reach only the signed-in owner.
+ *
+ * Hydration happens once, in AuthGuard, before any authed page renders.
+ * The unauthenticated /public page never hydrates and must never need to:
+ * the project guardrail is that age never renders to a public audience.
+ *
+ * Everything here returns null until hydrated, so a caller that runs early
+ * shows an empty state rather than a wrong number.
  */
 
-export { HEIGHT_CM, BIRTHDATE, SEX } from "./config";
-import { HEIGHT_CM, BIRTHDATE } from "./config";
+let birthdateIso: string | null = null;
+let heightCm: number | null = null;
+let sexValue: "female" | "male" | null = null;
+
+/**
+ * Age in whole years, for the unauthenticated /public page.
+ *
+ * That page ranks vitals into age-group percentiles and derives a fitness age,
+ * both of which need a number. It gets the integer from public_pb_age and
+ * never the date. Used for computation only: age is never rendered or quoted.
+ */
+let publicAgeYears: number | null = null;
+
+export interface ProfileRow {
+  birthdate: string | null;
+  height_cm: number | null;
+  sex: string | null;
+}
+
+/** Hydrate from the owner's `config` row. Called once, after the session exists. */
+export function hydrateProfile(row: ProfileRow | null): void {
+  birthdateIso = row?.birthdate ?? null;
+  heightCm = row?.height_cm ?? null;
+  sexValue = row?.sex === "female" || row?.sex === "male" ? row.sex : null;
+}
+
+/**
+ * Hydrate the year alone, for the unauthenticated /public page.
+ * Never pass a date here: this path is readable by anyone.
+ */
+export function hydratePublicAge(years: number | null): void {
+  publicAgeYears = years;
+}
+
+/** True once the profile row has been read. */
+export function isProfileHydrated(): boolean {
+  return birthdateIso !== null || heightCm !== null;
+}
+
+/** Height in cm, or null when unknown. */
+export function heightCmOrNull(): number | null {
+  return heightCm;
+}
+
+/** Sex at birth, relevant to a handful of sports-science reference ranges. */
+export function sexOrNull(): "female" | "male" | null {
+  return sexValue;
+}
 
 // ---- BMI helpers ---------------------------------------------------------
 
@@ -23,14 +76,14 @@ export type BMICategory =
   | "obese";
 
 /**
- * BMI = kg / m². Returns null if height isn't configured. For endurance
+ * BMI = kg / m². Null when weight or height is unknown. For endurance
  * athletes BMI is a coarse proxy (muscle mass inflates it, low body fat
  * doesn't show up) — the Nutri commentary on the weight tile carries that
  * caveat so the number doesn't read as a verdict.
  */
 export function bmi(weightKg: number | null | undefined): number | null {
-  if (typeof weightKg !== "number" || !HEIGHT_CM) return null;
-  const m = HEIGHT_CM / 100;
+  if (typeof weightKg !== "number" || !heightCm) return null;
+  const m = heightCm / 100;
   return weightKg / (m * m);
 }
 
@@ -56,9 +109,18 @@ export const BMI_CATEGORY_LABEL: Record<BMICategory, string> = {
 
 // ---- Age helpers ---------------------------------------------------------
 
-/** Current age in whole years from BIRTHDATE. */
-export function age(today = new Date()): number {
-  const dob = new Date(BIRTHDATE + "T00:00:00");
+/**
+ * Current age in whole years, or null before hydration.
+ *
+ * Internal sports-science use only: age-group percentile bands and fitness-age
+ * comparisons. It must not be rendered in the UI or quoted to any audience.
+ */
+export function age(today = new Date()): number | null {
+  // Falls back to the published integer on /public, where the date is absent
+  // by design. Still computation-only: never render this.
+  if (!birthdateIso) return publicAgeYears;
+
+  const dob = new Date(birthdateIso + "T00:00:00");
   let a = today.getFullYear() - dob.getFullYear();
   const beforeBirthday =
     today.getMonth() < dob.getMonth() ||
@@ -67,13 +129,17 @@ export function age(today = new Date()): number {
   return a;
 }
 
-/** Days until the next birthday. Negative on the birthday itself? No — 0. */
-export function daysUntilBirthday(today = new Date()): number {
-  const dob = new Date(BIRTHDATE + "T00:00:00");
+/** Days until the next birthday, or null before hydration. */
+export function daysUntilBirthday(today = new Date()): number | null {
+  if (!birthdateIso) return null;
+
+  const dob = new Date(birthdateIso + "T00:00:00");
   const next = new Date(today.getFullYear(), dob.getMonth(), dob.getDate());
   if (next < new Date(today.getFullYear(), today.getMonth(), today.getDate())) {
     next.setFullYear(next.getFullYear() + 1);
   }
-  const ms = next.getTime() - new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime();
+  const ms =
+    next.getTime() -
+    new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime();
   return Math.round(ms / (24 * 60 * 60 * 1000));
 }

@@ -22,7 +22,7 @@ import type { AgentKey } from "@/components/AgentAvatar";
 import { KPIInfo } from "@/components/KPIInfo";
 import { sanitizeInterview } from "@/lib/sanitize";
 import { rank, fitnessAge, type KPIKey } from "@/lib/percentiles";
-import { age as chronoAge } from "@/lib/profile";
+import { hydratePublicAge } from "@/lib/profile";
 import { APP_NAME, PHOTO_STRIP, RACE_NAME, RACE_SHORT_NAME } from "@/lib/config";
 
 /**
@@ -168,8 +168,16 @@ export function Public() {
       supabase.from("public_pb_weeks").select("*").limit(20),
       supabase.from("public_pb_latest_vitals").select("*").maybeSingle(),
       supabase.from("public_pb_strength_weeks").select("*").limit(20),
+      // Age in whole years, for the percentile bands and the fitness-age
+      // formula. Computation only: never rendered. Requires migration 0018,
+      // which is optional -- without it this errors and the percentile chips
+      // simply do not render.
+      supabase.from("public_pb_age").select("age_years").maybeSingle(),
     ])
-      .then(([t, w, v, s]) => {
+      .then(([t, w, v, s, a]) => {
+        if (!a.error) {
+          hydratePublicAge((a.data as { age_years: number | null } | null)?.age_years ?? null);
+        }
         if (t.error) throw t.error;
         if (w.error) throw w.error;
         setTotals(t.data as Totals | null);
@@ -857,8 +865,10 @@ function GripStrengthPublicTile({ vitals }: { vitals: LatestVitals | null }) {
 
 function FitnessAgePublicTile({ vo2 }: { vo2: number | null }) {
   const fa = fitnessAge(vo2);
-  const chrono = chronoAge();
-  const delta = fa !== null ? chrono - fa : null;
+  // No chronological comparison on the public page. Printing "N years younger"
+  // beside a fitness age makes the athlete's actual age trivially derivable,
+  // which is the same disclosure by arithmetic.
+  const delta: number | null = null;
   const tone =
     delta === null
       ? "var(--fn-pavement)"

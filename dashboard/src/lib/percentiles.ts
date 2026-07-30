@@ -128,6 +128,10 @@ function labelFor(percentile: number): string {
 export function rank(kpi: KPIKey, value: number | null | undefined, age?: number): RankResult | null {
   if (value === null || value === undefined || Number.isNaN(value)) return null;
   const a = age ?? currentAge();
+  // Age lives in the RLS-locked config row and is null until AuthGuard
+  // hydrates it. No age, no age-group ranking: return null and let the caller
+  // render its empty state rather than band this reading against a guess.
+  if (a === null) return null;
   const band = bandFor(a);
   const bps = band[kpi];
   if (!bps) return null;
@@ -142,6 +146,7 @@ export function rank(kpi: KPIKey, value: number | null | undefined, age?: number
 export function fitnessAge(vo2max: number | null | undefined, age?: number): number | null {
   if (vo2max === null || vo2max === undefined || Number.isNaN(vo2max)) return null;
   const a = age ?? currentAge();
+  if (a === null) return null;
   const band = bandFor(a);
   const p50 = band.vo2max.p50;
   const rawDelta = (p50 - vo2max) / 0.4;

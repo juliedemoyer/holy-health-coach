@@ -250,7 +250,8 @@ function GripCard({ rows }: { rows: Score[] }) {
 function FitnessAgeCard({ vo2 }: { vo2: number | null }) {
   const chrono = ageInYears();
   const fa = fitnessAge(vo2);
-  const delta = fa !== null ? chrono - fa : null;
+  // chrono is null until AuthGuard hydrates the profile from the config row.
+  const delta = fa !== null && chrono !== null ? chrono - fa : null;
   // Tone: younger-than-chrono → good (green), older → bad
   const tone =
     delta === null

@@ -188,17 +188,20 @@ npm run dev          # then open http://localhost:5173/?demo=1
 For a real instance:
 
 1. Create a Supabase project. Run `dashboard/supabase/schema.sql`, then
-   migrations 0001 to 0005 and 0008 to 0011, in order. Stop there unless you
-   want a public page: 0006, 0007 and 0012 to 0015 grant the anon role read
-   access to build up the `/public` view, and every private page works without
-   them. See Security and privacy notes below. If you ran an early copy of
-   0010, also run 0016.
-2. Copy `dashboard/.env.example` to `dashboard/.env.local` and fill in the
+   migrations 0001 to 0005, 0008 to 0011, and 0017, in order. Stop there
+   unless you want a public page: 0006, 0007, 0012 to 0015 and 0018 grant the
+   anon role read access to build up the `/public` view, and every private page
+   works without them. See Security and privacy notes below. If you ran an
+   early copy of 0010, also run 0016.
+2. Set your height, date of birth and sex with the `insert` at the bottom of
+   migration 0017. They belong in that RLS-locked row, not in an env var: see
+   Security and privacy notes for why.
+3. Copy `dashboard/.env.example` to `dashboard/.env.local` and fill in the
    Supabase URL and anon key.
-3. Answer the questions in **[docs/MAKE-IT-YOURS.md](docs/MAKE-IT-YOURS.md)**.
+4. Answer the questions in **[docs/MAKE-IT-YOURS.md](docs/MAKE-IT-YOURS.md)**.
    They walk you through `config/athlete.json`, `config/race.json`, and
    `config/thresholds.json`.
-4. Copy `CLAUDE.md.example` to `CLAUDE.md` and edit the bracketed parts, if
+5. Copy `CLAUDE.md.example` to `CLAUDE.md` and edit the bracketed parts, if
    you want to drive the swarm from Claude Code.
 
 ## Cost
@@ -281,15 +284,26 @@ figure in someone else's README.
   write, so it cannot touch a real project. Do not extend it to real data.
 - **`VITE_` env vars are public. All of them.** Vite inlines every variable
   with that prefix into the client bundle at build time, so
-  `VITE_BIRTHDATE`, `VITE_HEIGHT_CM` and `VITE_SEX` end up as literal strings
-  in the JavaScript your deployment serves. Keeping them out of a committed
-  file moves them from the repo into the bundle; it does not make them private,
-  and a deploy-target secret does not change that either. Treat anything
-  `VITE_`-prefixed as published. If you want those three values genuinely
-  private, put them in the RLS-locked `config` table and read them after
-  sign-in, or leave them unset and accept the `config/athlete.json` fallbacks.
-  The anon key is the one `VITE_` value that is *designed* to be public: RLS is
-  what protects the data behind it.
+  any value you put behind that prefix ends up as a literal string in the
+  JavaScript your deployment serves. Keeping it out of a committed file moves
+  it from the repo into the bundle; it does not make it private, and a
+  deploy-target secret does not change that either, because the build reads the
+  secret and writes the value into the bundle. Treat anything `VITE_`-prefixed
+  as published. The anon key is the one such value that is *designed* to be
+  public: RLS is what protects the data behind it.
+- **Height, date of birth and sex are not env vars.** They live in the
+  RLS-locked `config` row (migration 0017) and are fetched once, after
+  sign-in. This repo shipped them as `VITE_BIRTHDATE`, `VITE_HEIGHT_CM` and
+  `VITE_SEX` until 2026-07-30, which put a real date of birth into a publicly
+  downloadable asset on the reference instance. If you are upgrading, run
+  0017, move your values into that row, and delete the three variables from
+  every `.env` file and deploy environment you have. A rebuild is what
+  actually removes them from the served bundle.
+- Age is used by the percentile bands and the fitness-age helper and is
+  **never rendered**. The public page reads a whole-year integer from
+  `public_pb_age` (migration 0018, optional) rather than a date, and its
+  fitness-age tile deliberately omits the "N years younger" comparison,
+  because printing that next to a fitness age discloses the age by arithmetic.
 - `.gitignore` covers `.env.local`, and body photos, medical documents and
   exports are excluded wholesale.
 - **Nothing in `src/` should hardcode a reading, a date, a place or a race

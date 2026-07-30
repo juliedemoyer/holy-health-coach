@@ -28,14 +28,23 @@ export const APP_NAME = import.meta.env.VITE_APP_NAME || "Holy";
 export const ATHLETE_NAME = import.meta.env.VITE_ATHLETE_NAME || athlete.athleteName;
 export const COACH_NAME = athlete.coachName;
 
-/** Height in cm, used for the BMI helper. Example fallback, not a real value. */
-export const HEIGHT_CM = Number(import.meta.env.VITE_HEIGHT_CM) || athlete.heightCm;
-
-/** ISO date of birth. Example fallback, not a real date. */
-export const BIRTHDATE: string = import.meta.env.VITE_BIRTHDATE || athlete.birthdate;
-
-/** Sex at birth. Relevant only to a handful of sports-science reference ranges. */
-export const SEX = (import.meta.env.VITE_SEX || athlete.sex) as "female" | "male";
+/**
+ * Height, date of birth and sex are NOT here, and must not be.
+ *
+ * They used to be read from VITE_HEIGHT_CM, VITE_BIRTHDATE and VITE_SEX. Vite
+ * inlines every VITE_-prefixed variable into the client bundle at build time,
+ * so a real date of birth ended up as a literal string in a publicly
+ * downloadable .js asset. Moving them out of `config/athlete.json` and into
+ * env vars moved them from the repo into the bundle; it did not make them
+ * private, and a deploy-target secret does not either, because the build reads
+ * the secret and writes the value into the bundle.
+ *
+ * They now live in the RLS-locked `config` row and are hydrated at runtime by
+ * AuthGuard. See `lib/profile.ts` and migration 0017.
+ *
+ * The example values in `config/athlete.json` stay as documentation of the
+ * shape. They are not read at runtime any more.
+ */
 
 // ── Race ───────────────────────────────────────────────────────────────────
 
