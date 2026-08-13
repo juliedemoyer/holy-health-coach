@@ -203,9 +203,12 @@ export function Nutrition() {
       <MealPlanner />
 
       <section>
-        <h3 className="font-display text-base font-medium text-[--color-ink] mb-3">
-          Food snapshots — making healthy choices
-        </h3>
+        <div className="flex items-baseline justify-between mb-3 gap-3 flex-wrap">
+          <h3 className="font-display text-base font-medium text-[--color-ink]">
+            Food snapshots — making healthy choices
+          </h3>
+          <LogMealForm onLogged={(meal) => setMeals((prev) => [meal, ...prev])} />
+        </div>
         {meals.length === 0 ? (
           <EmptyGallery />
         ) : (
@@ -215,9 +218,13 @@ export function Nutrition() {
                 <div className="aspect-square bg-[--color-surface-2]">
                   {photoUrls[m.id] ? (
                     <img src={photoUrls[m.id]} alt="" className="w-full h-full object-cover" />
-                  ) : (
+                  ) : m.photo_path ? (
                     <div className="w-full h-full grid place-items-center text-[--color-ink-dim] text-xs">
                       …
+                    </div>
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center p-3 text-center text-[11px] text-[--color-ink-mid] leading-snug capitalize">
+                      {(m.foods ?? []).slice(0, 4).join(", ") || "logged meal"}
                     </div>
                   )}
                 </div>
@@ -395,6 +402,169 @@ function EmptyGallery() {
         Meal photos land here as you log them — vision macros auto-populate
         each card.
       </p>
+    </div>
+  );
+}
+
+/**
+ * Manual meal entry: no vision pipeline required. Foods + optional macros,
+ * inserted straight into the `meals` table so it shows up in both the
+ * snapshot gallery and the most-eaten-foods tally alongside vision-tagged
+ * meals. Demo mode drops the write (see lib/demo.ts) but still echoes the
+ * row back locally so the form doesn't feel broken while browsing with
+ * fictional data.
+ */
+function LogMealForm({ onLogged }: { onLogged: (meal: Meal) => void }) {
+  const [open, setOpen] = useState(false);
+  const [foods, setFoods] = useState("");
+  const [slot, setSlot] = useState<NonNullable<Meal["slot"]>>("lunch");
+  const [protein, setProtein] = useState("");
+  const [carbs, setCarbs] = useState("");
+  const [fat, setFat] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const reset = () => {
+    setFoods("");
+    setSlot("lunch");
+    setProtein("");
+    setCarbs("");
+    setFat("");
+    setError(null);
+  };
+
+  const submit = async () => {
+    const foodList = foods
+      .split(",")
+      .map((f) => f.trim().toLowerCase())
+      .filter(Boolean);
+    if (foodList.length === 0) {
+      setError("List at least one food");
+      return;
+    }
+
+    const toNum = (v: string) => (v.trim() === "" ? null : Number(v));
+    const protein_g = toNum(protein);
+    const carbs_g = toNum(carbs);
+    const fat_g = toNum(fat);
+    const calories =
+      protein_g !== null && carbs_g !== null && fat_g !== null
+        ? Math.round(protein_g * 4 + carbs_g * 4 + fat_g * 9)
+        : null;
+
+    setSaving(true);
+    setError(null);
+    const { data, error: insertError } = await supabase
+      .from("meals")
+      .insert([
+        {
+          date: new Date().toISOString().slice(0, 10),
+          slot,
+          foods: foodList,
+          protein_g,
+          carbs_g,
+          fat_g,
+          calories,
+        },
+      ])
+      .select()
+      .single();
+    setSaving(false);
+
+    if (insertError || !data) {
+      setError(insertError?.message ?? "Couldn't save that meal");
+      return;
+    }
+    onLogged(data);
+    reset();
+    setOpen(false);
+  };
+
+  if (!open) {
+    return (
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg text-white transition"
+        style={{ background: "var(--color-nutri)" }}
+      >
+        <Plus className="w-3.5 h-3.5" /> Log a meal
+      </button>
+    );
+  }
+
+  return (
+    <div className="holy-card p-4 w-full space-y-3">
+      <div className="flex flex-wrap gap-2">
+        <input
+          type="text"
+          value={foods}
+          onChange={(e) => {
+            setFoods(e.target.value);
+            if (error) setError(null);
+          }}
+          placeholder="e.g. salmon poke, mango, avocado, edamame"
+          className="flex-1 min-w-[200px] px-3 py-2 rounded-lg bg-[--color-bg] border border-[--color-border] text-sm"
+        />
+        <select
+          value={slot}
+          onChange={(e) => setSlot(e.target.value as NonNullable<Meal["slot"]>)}
+          className="px-3 py-2 rounded-lg bg-[--color-bg] border border-[--color-border] text-sm"
+        >
+          <option value="breakfast">Breakfast</option>
+          <option value="lunch">Lunch</option>
+          <option value="dinner">Dinner</option>
+          <option value="snack">Snack</option>
+        </select>
+      </div>
+      <div className="flex flex-wrap gap-2">
+        <input
+          type="number"
+          inputMode="decimal"
+          value={protein}
+          onChange={(e) => setProtein(e.target.value)}
+          placeholder="Protein g (optional)"
+          className="w-36 px-3 py-2 rounded-lg bg-[--color-bg] border border-[--color-border] text-sm"
+        />
+        <input
+          type="number"
+          inputMode="decimal"
+          value={carbs}
+          onChange={(e) => setCarbs(e.target.value)}
+          placeholder="Carbs g (optional)"
+          className="w-36 px-3 py-2 rounded-lg bg-[--color-bg] border border-[--color-border] text-sm"
+        />
+        <input
+          type="number"
+          inputMode="decimal"
+          value={fat}
+          onChange={(e) => setFat(e.target.value)}
+          placeholder="Fat g (optional)"
+          className="w-32 px-3 py-2 rounded-lg bg-[--color-bg] border border-[--color-border] text-sm"
+        />
+      </div>
+      {error && <div className="text-[11px] text-[--color-warn]">{error}</div>}
+      <div className="flex gap-2">
+        <button
+          type="button"
+          onClick={submit}
+          disabled={saving}
+          className="px-4 py-2 rounded-lg text-sm font-semibold text-white transition disabled:opacity-60"
+          style={{ background: "var(--color-nutri)" }}
+        >
+          {saving ? "Saving…" : "Save meal"}
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            reset();
+            setOpen(false);
+          }}
+          className="px-4 py-2 rounded-lg text-sm font-semibold text-[--color-ink-mid] bg-[--color-surface-2] transition"
+        >
+          Cancel
+        </button>
+      </div>
     </div>
   );
 }

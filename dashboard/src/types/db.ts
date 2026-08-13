@@ -276,11 +276,21 @@ export interface Database {
           sessions_goal: number;
           sessions_start: string;
           updated_at: string;
+          // Personal constants (migration 0017). Nullable: not every
+          // deployment has backfilled them yet.
+          birthdate: string | null;
+          height_cm: number | null;
+          sex: "female" | "male" | null;
         };
         Insert: Partial<Database["public"]["Tables"]["config"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["config"]["Row"]>;
         Relationships: [];
       };
     };
+    // supabase-js's GenericSchema constraint requires these even when empty —
+    // without them, generic resolution for writes (e.g. .insert()) silently
+    // collapses to `never` instead of surfacing a real type error.
+    Views: Record<string, never>;
+    Functions: Record<string, never>;
   };
 }
