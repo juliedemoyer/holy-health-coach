@@ -79,8 +79,9 @@ Tune-ups: 10 km mid-July · half-marathon mid-August
 26. **Negative split or even split** beats positive split for PB
     attempts. Go out at goal pace +5 sec/km for the first 5 km.
 27. **Fuel every 4–5 km from km 8 onward.** 60g carbs/hour minimum.
-28. **The Brandenburg Gate at km 41.6 is the moment.** Everything
-    before it is just getting there. Mind has the mantra.
+28. **Name your landmark and know its km.** Every course has one — the
+    gate, the bridge, the stadium tunnel. Everything before it is just
+    getting there. Read it off `config/race.json`; Mind has the mantra.
 29. **Walk the aid stations** if you need to drink properly. 5 sec
     saves you from spilling 500 ml.
 30. **Smile at km 30.** It tricks the brain, lowers perceived effort.
