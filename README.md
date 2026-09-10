@@ -147,6 +147,9 @@ system does and what you get when you clone it. **Shipped** means it is in this
 repo. **Schema only** means the table, columns and dashboard that consume the
 source are here, but the connector that fills them is not: it runs on one
 machine against one set of vendor credentials, and you write your own.
+[`docs/WRITING-YOUR-CONNECTOR.md`](docs/WRITING-YOUR-CONNECTOR.md) gives you
+the contract for that: the `scores` and `activities` columns, how the upserts
+are addressed, and the handful of things that otherwise cost an afternoon.
 
 ### External
 
