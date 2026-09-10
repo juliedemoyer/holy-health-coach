@@ -856,6 +856,7 @@
   :root { --rust: #1E3A8A; --rust-deep: #152A66;
            --rust-dim: #1E3A8A1f; --rust-dim2: #1E3A8A0d; }
 
+  .b-role { font-weight: 400; color: var(--muted, #8A8278); font-size: 0.88em; }
   .josh-badge::after { content: none; }
   .josh-badge .badge-name {
     position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
@@ -1009,10 +1010,10 @@
   <span class="card-index">2</span>
   <span class="card-eyebrow">The Daily Brief</span>
   <h2 class="card-title">Adapts overnight to your own data</h2>
-  <div class="card-section"><h4>What</h4><p>Every morning, one brief: a read, three micro-actions, one closing line — under 700 characters. Rebuilt each night from the overnight sync, plan-versus-actual training and your health KPIs.</p></div><div class="card-section"><h4>Impact</h4><p><b>This is the gold.</b> A normal coach writes the plan once; Holy reviews estimated plan against actuals and recalibrates, so the plan bends to reality instead of scoring you against it.</p></div><div class="card-section"><h4>Context</h4><ul><li>Nutri daily · Doc &amp; Mind on triggers</li>
+  <div class="card-section"><h4>What</h4><p>Every morning, one brief: the numbers first, Coach's read, today's session, the next seven days as planned-versus-adjusted, three micro-actions and one 1% habit action. Rebuilt each night from the overnight sync, plan-versus-actual training and your health KPIs.</p></div><div class="card-section"><h4>Impact</h4><p><b>This is the gold.</b> A normal coach writes the plan once; Holy reviews estimated plan against actuals and recalibrates, so the plan bends to reality instead of scoring you against it.</p></div><div class="card-section"><h4>Context</h4><ul><li>Nutri daily · Doc &amp; Mind on triggers</li>
 <li>Parallel fan-out when triggers stack</li>
 <li>Dashboard · vitals, plan-vs-actual, countdown</li></ul></div>
-  <div class="card-tags"><span class="tag sage">Haiku → Sonnet</span>
+  <div class="card-tags"><span class="tag sage">Tokens only for judgment</span>
 <span class="tag ">Trigger-based routing</span></div>
 </article>
 
@@ -1020,7 +1021,7 @@
   <span class="card-index">3</span>
   <span class="card-eyebrow">The A-Team</span>
   <h2 class="card-title">Part of a larger Agent A-team</h2>
-  <div class="card-section"><h4>What</h4><p>Holy reads shared memory from the sibling agents each morning before composing the brief. Signals compound across the team: a heavy work week changes how a training week gets paced.</p></div><div class="card-section"><h4>The Team</h4><div class="agent-row"><span class="dot" style="background:#B34E2A"></span><span><b>Josh</b> · career &amp; pipeline</span></div><div class="agent-row"><span class="dot" style="background:#5E8A56"></span><span><b>Rachel</b> · market &amp; company intel</span></div><div class="agent-row"><span class="dot" style="background:#1E3A8A"></span><span><b>Holy</b> · holistic health &amp; longevity</span></div><div class="agent-row"><span class="dot" style="background:#5C6B7A"></span><span><b>Cody</b> · verification &amp; connections</span></div><div class="agent-row"><span class="dot" style="background:#A07850"></span><span><b>Warren</b> · financial investment analysis</span></div><div class="agent-row"><span class="dot" style="background:#8A8278"></span><span><b>Story coach</b> · narrative &amp; positioning</span></div><div class="agent-row"><span class="dot" style="background:#42505E"></span><span><b>CoWork</b> · sprint orchestration</span></div></div>
+  <div class="card-section"><h4>What</h4><p>Holy reads shared memory from the sibling agents each morning before composing the brief. Signals compound across the team: a heavy work week changes how a training week gets paced.</p></div><div class="card-section"><h4>The Team</h4><div class="agent-row"><span class="dot" style="background:#B34E2A"></span><span><b>Josh</b> · career &amp; pipeline</span></div><div class="agent-row"><span class="dot" style="background:#5E8A56"></span><span><b>Rachel</b> · market &amp; company intel</span></div><div class="agent-row"><span class="dot" style="background:#1E3A8A"></span><span><b>Holy</b> · holistic health &amp; longevity</span></div><div class="agent-row"><span class="dot" style="background:#5C6B7A"></span><span><b>Cody</b> · verification &amp; connections</span></div><div class="agent-row"><span class="dot" style="background:#A07850"></span><span><b>Warren</b> · financial investment analysis</span></div><div class="agent-row"><span class="dot" style="background:#8A8278"></span><span><b>Wally</b> · narrative &amp; positioning</span></div><div class="agent-row"><span class="dot" style="background:#7C6A9C"></span><span><b>Leonie</b> · content &amp; social</span></div><div class="agent-row"><span class="dot" style="background:#42505E"></span><span><b>CoWork</b> · sprint orchestration</span></div></div>
   <div class="card-tags"><span class="tag walter">Shared vault</span>
 <span class="tag walter">Agent memory</span>
 <span class="tag ">Claude Code subagents</span></div>
@@ -1065,7 +1066,7 @@
 </div>
 <div class="source-row">
   <span class="src-code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
-  <div><div class="name">Activity feed<span class="access-tag api">API</span></div><div class="detail">Runs &amp; sessions · plan versus actual</div></div>
+  <div><div class="name">Activity feed<span class="access-tag api">API</span></div><div class="detail">Runs &amp; sessions · detected, not reported · plan vs actual</div></div>
 </div>
 <div class="source-row">
   <span class="src-code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3s6 7 6 11a6 6 0 01-12 0c0-4 6-11 6-11z"/></svg></span>
@@ -1073,7 +1074,7 @@
 </div>
 <div class="source-row">
   <span class="src-code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8.5 8.5a5 5 0 017 0M12 8.5V11"/></svg></span>
-  <div><div class="name">Digital scale<span class="access-tag api">API</span></div><div class="detail">Weight &amp; body-composition trend</div></div>
+  <div><div class="name">Body composition<span class="access-tag api">API</span></div><div class="detail">Weight &amp; body-composition trend · scale or wearable</div></div>
 </div>
 <div class="source-row">
   <span class="src-code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h14v16l-4-3-3 3-3-3-4 3z"/><path d="M9 9h6M9 13h4"/></svg></span>
@@ -1093,7 +1094,7 @@
 </div>
 <div class="source-row">
   <span class="src-code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5a2 2 0 012-2h13v18H6a2 2 0 01-2-2z"/><path d="M8 7h7M8 11h7"/></svg></span>
-  <div><div class="name">Coach plan<span class="access-tag cli">CLI</span></div><div class="detail">20-week build · sessions &amp; overrides</div></div>
+  <div><div class="name">Coach plan<span class="access-tag cli">CLI</span></div><div class="detail">Config-driven build · sessions &amp; overrides</div></div>
 </div>
 <div class="source-row">
   <span class="src-code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a1 1 0 00-1 1v16a1 1 0 001 1h10a1 1 0 001-1V7z"/><path d="M14 3v4h4"/></svg></span>
@@ -1145,12 +1146,12 @@
   <span class="n">05</span>
   <div class="body">
     <h4>Synthesise<span class="step-kind agentic"><span class="d"></span>Agentic</span></h4>
-    <p>Coach recalibrates the plan against your actuals, then ships one brief: the read, every specialist quoted, three micro-actions, one closer. ≤700 characters.</p>
+    <p>Coach recalibrates the plan against your actuals, then ships one brief: the numbers, the read, every specialist quoted, today's session, the next seven days plan-versus-adjusted, three micro-actions and one closer.</p>
   </div>
 </div></div>
     <div class="model-routing">
       <span class="rt-label">Model routing</span>
-      <span class="rt-body">Sync, parsing &amp; threshold checks → <b>Haiku</b>. Specialist reasoning &amp; the brief → <b>Sonnet</b>. The conditional triggers do the cost control: specialists run only when their tables fire.</span>
+      <span class="rt-body">Sync, parsing &amp; threshold checks are <b>deterministic code</b> — no tokens spent. Models run only where judgment is needed: the specialists and the brief, on <b>Sonnet</b>. The conditional triggers do the rest of the cost control — specialists run only when their tables fire.</span>
     </div>
   </div>
   <div class="briefing">
@@ -1159,7 +1160,7 @@
     
 <div class="b-section">
   <span class="num">1</span>
-  <div class="body"><h4>Countdown header</h4><p>Days to race, phase, build week, sessions banked toward the goal.</p></div>
+  <div class="body"><h4>Countdown header</h4><p>Days to race, phase, build week, sessions banked.</p></div>
 </div>
 <div class="b-section">
   <span class="num">2</span>
@@ -1167,27 +1168,39 @@
 </div>
 <div class="b-section">
   <span class="num">3</span>
-  <div class="body"><h4>Nutri</h4><p>The daily fuelling micro-action, plus vitamins &amp; prebiotics. Specific foods, never food groups.</p></div>
+  <div class="body"><h4>Today's session</h4><p>The exact session from the plan — stated, never asked — with the one cue that matters.</p></div>
 </div>
 <div class="b-section">
   <span class="num">4</span>
-  <div class="body"><h4>Doc</h4><p>Only if a trigger fired: a flag level and what to actually do about it.</p></div>
+  <div class="body"><h4>The next seven days</h4><p>Every day twice: as promised, and as yesterday's actuals changed it. Volume holds on the easy days, never the long run.</p></div>
 </div>
 <div class="b-section">
   <span class="num">5</span>
-  <div class="body"><h4>Mind</h4><p>Only when it matters: taper, race week, a bad session, a flat week.</p></div>
+  <div class="body"><h4>Nutri <span class="b-role">· the nutritionist</span></h4><p>The daily fuelling micro-action, plus vitamins &amp; prebiotics. Specific foods, never food groups.</p></div>
 </div>
 <div class="b-section">
   <span class="num">6</span>
-  <div class="body"><h4>Three micro-actions</h4><p>Concrete, sequenced, done by lunch. The most important section.</p></div>
+  <div class="body"><h4>Doc <span class="b-role">· the sports doctor</span></h4><p>Only if a trigger fired: a flag level and what to actually do about it.</p></div>
 </div>
 <div class="b-section">
   <span class="num">7</span>
-  <div class="body"><h4>Travel mode <span class="new-badge">New</span></h4><p>Adapts to your timezone: on a work trip the plan shifts to beat jetlag, a packed agenda and competition dates.</p></div>
+  <div class="body"><h4>Mind <span class="b-role">· sports psychologist</span></h4><p>Only when it matters: taper, race week, a bad session, a flat week.</p></div>
+</div>
+<div class="b-section">
+  <span class="num">8</span>
+  <div class="body"><h4>Three micro-actions</h4><p>Concrete, sequenced, done by lunch. The section that matters.</p></div>
+</div>
+<div class="b-section">
+  <span class="num">9</span>
+  <div class="body"><h4>Today's 1% <span class="new-badge">New</span></h4><p>One small habit action aimed at a named KPI and the number it chases. Rotates daily, never repeats a lever.</p></div>
+</div>
+<div class="b-section">
+  <span class="num">10</span>
+  <div class="body"><h4>Travel mode</h4><p>Trips are known to the plan: a realistic weekly target, the long run moved not dropped, jetlag read from the calendar.</p></div>
 </div>
   </div>
 </div>
-<div class="p2-stats" style="grid-template-columns:repeat(5,1fr)"><div class="p2-stat"><span class="v">4</span><span class="k">Coaches · 1 voice</span></div><div class="p2-stat"><span class="v">≤700</span><span class="k">Chars per brief</span></div><div class="p2-stat"><span class="v">20</span><span class="k">Week build plan</span></div><div class="p2-stat"><span class="v">2 min</span><span class="k">To read, once</span></div><div class="p2-stat"><span class="v">Nightly</span><span class="k">Plan recalibrated</span></div></div>
+<div class="p2-stats" style="grid-template-columns:repeat(5,1fr)"><div class="p2-stat"><span class="v">4</span><span class="k">Coaches · 1 voice</span></div><div class="p2-stat"><span class="v">7</span><span class="k">Days of plan, two columns</span></div><div class="p2-stat"><span class="v">0</span><span class="k">Tokens spent on the sync</span></div><div class="p2-stat"><span class="v">2 min</span><span class="k">To read, once</span></div><div class="p2-stat"><span class="v">Nightly</span><span class="k">Plan recalibrated</span></div></div>
 </section>
 
 </body></html>
