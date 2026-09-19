@@ -34,6 +34,18 @@ export const supabase: SupabaseClient<Database> = (
 );
 
 /**
+ * `activities.distance_km` is a Postgres `numeric` column, which PostgREST
+ * serializes as a JSON string to avoid float precision loss — even though the
+ * generated types say `number`. Left uncoerced, `weeklyKm += a.distance_km`
+ * and similar sums silently do string concatenation instead of addition
+ * (e.g. "10.08.7623.51"). Call this on every row coming out of an
+ * `activities` query.
+ */
+export function coerceActivityDistance<T extends { distance_km: number | null }>(row: T): T {
+  return row.distance_km == null ? row : { ...row, distance_km: Number(row.distance_km) };
+}
+
+/**
  * Get a signed URL for a private storage bucket object.
  *
  * Waits for the session before signing. Without that wait, a call made during

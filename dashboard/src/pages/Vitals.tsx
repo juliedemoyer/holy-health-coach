@@ -209,6 +209,7 @@ export function Vitals() {
           kpi="rhr"
           latestValue={latestNonNull(rows, "rhr")}
           delta={computeDelta(rows, "rhr")}
+          lowerIsBetter
           subtitle={`Preferred ${RHR_GOOD_LOW}–${RHR_GOOD_HIGH} bpm · lower is better`}
           commentary={trendCommentary("rhr", rows, "doc")}
           chart={
@@ -334,6 +335,7 @@ export function Vitals() {
           kpi="body_fat_percent"
           latestValue={latestNonNull(rows, "body_fat_percent") ?? 29}
           delta={computeDelta(rows, "body_fat_percent")}
+          lowerIsBetter
           subtitle="Garmin scale reading · trend over weeks is the signal"
           commentary={bodyFatCommentary(rows)}
           chart={
@@ -487,6 +489,7 @@ function ChartCard({
   commentary,
   kpi,
   latestValue,
+  lowerIsBetter = false,
 }: {
   title: string;
   unit: string;
@@ -503,6 +506,9 @@ function ChartCard({
    *  the ones with norm tables (body_battery has copy but no rank). */
   kpi?: DescribedKpi;
   latestValue?: number | null;
+  /** RHR, body fat: a falling number is the good direction, so the badge
+   *  paints "down" green instead of red. */
+  lowerIsBetter?: boolean;
 }) {
   const a = AGENTS[owner];
   const ranked = kpi && RANKABLE_KPIS.has(kpi) && latestValue !== null && latestValue !== undefined
@@ -529,7 +535,7 @@ function ChartCard({
           <div className="text-xs text-[--color-ink-mid] mt-1">{subtitle}</div>
         </div>
         {delta.diff !== null && (
-          <DeltaBadge delta={delta} />
+          <DeltaBadge delta={delta} lowerIsBetter={lowerIsBetter} />
         )}
       </div>
       {chart}
@@ -617,12 +623,20 @@ function latestNonNull<T extends { date: string }>(
   return null;
 }
 
-function DeltaBadge({ delta }: { delta: ReturnType<typeof computeDelta> }) {
+function DeltaBadge({
+  delta,
+  lowerIsBetter = false,
+}: {
+  delta: ReturnType<typeof computeDelta>;
+  lowerIsBetter?: boolean;
+}) {
   if (delta.diff === null || delta.prior7d === null) return null;
+  // Direction alone is not good or bad: a falling RHR is an improvement.
+  const good = (delta.direction === "up") !== lowerIsBetter;
   const tone =
     delta.direction === "flat"
       ? "var(--color-ink-dim)"
-      : delta.direction === "up"
+      : good
       ? "var(--color-good)"
       : "var(--color-bad)";
   const arrow = delta.direction === "up" ? "↑" : delta.direction === "down" ? "↓" : "—";

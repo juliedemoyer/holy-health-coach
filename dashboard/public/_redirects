@@ -1,5 +1,10 @@
-# Root → public stats page (link in bio landing)
-/    /public    302
-
-# Cloudflare Pages SPA fallback — every other path served by index.html
+# Cloudflare Pages SPA fallback — every path served by index.html.
+#
+# There is deliberately NO server-side "/ -> /public" rule here. One would
+# break magic-link sign-in: the link lands on the site root carrying the
+# session in the URL, the server redirects it to /public, and the user ends up
+# on the public page instead of their dashboard. The token rides in the URL
+# *fragment*, which never reaches the server, so no _redirects rule can tell an
+# auth landing from a normal visit. Root decides client-side in AuthGuard:
+# session -> dashboard, no session -> /public.
 /*    /index.html   200

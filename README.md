@@ -283,6 +283,14 @@ figure in someone else's README.
   HRV, resting heart rate, sleep, weight, body-fat percentage, muscle mass and
   grip strength to anyone on the internet. That is a deliberate choice for one
   athlete's public page. It is unlikely to be yours.
+- **Sign-in is password first, magic link as fallback.** Magic links break
+  for anyone who installs the dashboard to their iPhone home screen: tapping
+  the link in a mail app opens Safari, so the session lands in Safari's storage
+  and the home-screen app never sees it. Set a password on your user in
+  Supabase (Authentication → Users), and add your deployed URL to the
+  project's Redirect URLs so the magic-link fallback returns you to the page
+  you asked for. If you deployed before 2026-09-19, delete any `/ -> /public`
+  rule from `public/_redirects`: it catches the magic-link landing too.
 - Demo mode (`?demo=1`) bypasses auth by design. It also short-circuits every
   write, so it cannot touch a real project. Do not extend it to real data.
 - **`VITE_` env vars are public. All of them.** Vite inlines every variable
