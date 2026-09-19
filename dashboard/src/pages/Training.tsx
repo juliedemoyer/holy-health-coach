@@ -14,7 +14,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { supabase } from "@/lib/supabase";
+import { supabase, coerceActivityDistance } from "@/lib/supabase";
 import type { Database } from "@/types/db";
 import { raceStatus, formatPace, formatTime, RACE_GOALS, GOAL_TARGET } from "@/lib/race";
 import {
@@ -55,7 +55,7 @@ export function Training() {
       .select("id,date,type,name,distance_km,duration_s,avg_pace_s_per_km,avg_hr,max_hr,elevation_m")
       .order("date", { ascending: false })
       .limit(300)
-      .then(({ data }) => setActs((data as Activity[]) ?? []));
+      .then(({ data }) => setActs(((data as Activity[]) ?? []).map(coerceActivityDistance)));
     // Latest VO₂max anchors the race-pace prediction alongside best-effort Riegel.
     void supabase
       .from("scores")

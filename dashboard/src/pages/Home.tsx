@@ -4,7 +4,7 @@ import { Flag, Footprints, Trophy, Activity, Apple, Brain } from "lucide-react";
 import { differenceInCalendarDays, format } from "date-fns";
 import { raceStatus, dailyRaceCue, longRunsRemaining, SESSIONS_GOAL, BUILD_START_ISO } from "@/lib/race";
 import { AGENTS } from "@/components/AgentAvatar";
-import { supabase } from "@/lib/supabase";
+import { supabase, coerceActivityDistance } from "@/lib/supabase";
 import type { Database } from "@/types/db";
 import { AgentTeamCard } from "@/components/AgentAvatar";
 import { PhaseRoad } from "@/components/PhaseRoad";
@@ -65,8 +65,8 @@ export function Home() {
         .order("date", { ascending: false })
         .limit(30),
     ]);
-    setRuns(actsRes.data ?? []);
-    setAllActivities(allActsRes.data ?? []);
+    setRuns((actsRes.data ?? []).map(coerceActivityDistance));
+    setAllActivities((allActsRes.data ?? []).map(coerceActivityDistance));
     setTuneUps(tuneRes.data ?? []);
     setLatestCheckin(ciRes.data ?? null);
     // Keep desc order — computeFitness expects most-recent-first.
